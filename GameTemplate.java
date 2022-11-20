@@ -1,9 +1,10 @@
 /***************************************************************************************
-* Name:        GameTemplate for Change One leter
-* Author:      Lara Wear
-* Date:        Oct 27, 2011
-* Purpose:     Shows how to create an interactive, graphical application in Java using
-               Dialog Boxes from JOptionPane for user input.
+* Name:        Change One letter Game
+* Author:      Kate S and Daniel K
+* Date:        Novenber 30th, 2022
+* Purpose:     An interactive and graphical version of the Change One Letter Game with both
+*			   single and double player options. 
+* Computer:    The computer player is...(continue this later)
 ****************************************************************************************/
 
 
@@ -14,13 +15,13 @@ import java.net.URL;
 
 
 public class GameTemplate extends JPanel {
-    static Image[] pics = new Image[4];  // array of dancing gifs
+    
     static Image bgImage1;              // image displayed while play occurs for part 1
     static Image bgImage2;              // image displayed while play occurs for part 2
     static JPanel panel;                 // main drawing panel
     static JFrame frame;                 // window frame which contains the panel
-    static final int WINDOW_WIDTH = 1000; // width of display window
-    static final int WINDOW_HEIGHT = 1000;// height of display window
+    static final int WINDOW_WIDTH = 900; // width of display window
+    static final int WINDOW_HEIGHT = 700;// height of display window
 
     static int gameStage = 0;            // stages of game
     static final int WELCOME_SCREEN = 0;
@@ -34,7 +35,7 @@ public class GameTemplate extends JPanel {
     static int turn = 1;                           // current turn of game (starts at turn 1)
     static String dataEntered = "";                 // input from user
     static boolean resetDataEntered = false;       // used to reset dataEntered to empty string
-    static String currentPlayer = "";              // tracks the currentplayer
+    static String currentPlayer = "";              // tracks the current player
     static String currentWord = "";                 // tracks the currentWord
     static String goalWord = "";
  
@@ -60,15 +61,6 @@ public class GameTemplate extends JPanel {
         bgImage1 = tk.getImage(url);
         url = GameTemplate.class.getResource("bg2.jpg");
         bgImage2 = tk.getImage(url);
-  
-        // Load pics array with images of dancing letters
-		String [] letters = {"a", "e", "n", "w"};
-		for (int i=0; i < pics.length; i++){
-			System.out.println(letters[i]); // delete this line when no longer needed
-			url = GameTemplate.class.getResource(letters[i] + ".gif");
-			pics[i] = tk.getImage(url);	
-		}
-		
   
         // Create Frame and Panel to display graphics in
   
@@ -116,11 +108,8 @@ public class GameTemplate extends JPanel {
             g.setColor(Color.white );
             g.fillOval(400, 300, 100, 300);
 
-            // top line of images
-            for (int i=0; i < pics.length; i++) {
-                g.drawImage(pics[i], i*194, 0, this);  // display the image
-            } // for
-
+            
+            // welcome words on home screen
             g.setColor(Color.black);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));   // set font
             g.drawString("Welcome to ", 360, 250);
@@ -170,7 +159,7 @@ public class GameTemplate extends JPanel {
             drawString(g, playOutput, 20,30);  
             drawString(g, playOutput1, 600, 30);  
             drawString(g, playOutput5, 20, 200); 
-            drawString(g, playOutput6, 50, 800);
+            drawString(g, playOutput6, 50, 600);
              
             g.setColor(Color.red);
             g.setFont(new Font("SansSerif", Font.BOLD, 12));
@@ -283,11 +272,11 @@ public class GameTemplate extends JPanel {
     }    
 
     // returns name of currentPlayer
-    private static String getCurrentPlayer(){
+    private static String getCurrentPlayer(){ //change this to asking for a name
         if (numPlayers == 2) {
-            return (turn%2 != 0) ? "Player 2" : "Player 1"; // swaped
+            return (turn % 2 != 0) ? "Player 2" : "Player 1"; 
         } else {
-            return (turn%2 != 0) ? "Computer" : "Player 1";
+            return (turn % 2 != 0) ? "Computer" : "Player 1";
         }
     
     } // getCurrentPlayer
@@ -295,9 +284,9 @@ public class GameTemplate extends JPanel {
     // returns name of other player
     private static String getOtherPlayer(){
         if (numPlayers == 2) {
-            return (turn%2 == 0) ? "Player 1" : "Player 2";
+            return (turn % 2 == 0) ? "Player 1" : "Player 2";
         } else {
-            return (turn%2 == 0) ? "Player 1" : "Computer";
+            return (turn % 2 == 0) ? "Player 1" : "Computer";
         }
     
     } // getCurrentPlayer
@@ -307,7 +296,7 @@ public class GameTemplate extends JPanel {
       return (numPlayers == 1 && turn%2 == 0);
     }
     
-    public static String getWordFromUser(int playerNum) {
+    public static String getWordFromUser(int playerNum) { //may delete this later if not needed
         String word = ""; // the word that is given by the user
 
         do {
@@ -344,22 +333,24 @@ public class GameTemplate extends JPanel {
     
         // set up strings for display
          playOutput = "Processing...";
-         playOutput1 = "Turn " + turn;
          playOutput4 = getOtherPlayer() + ": ";
          playOutput2 = currentWord;
         
-      
+         // display the turn after the start and goal words are set
+         if (turn > 2) {
+        	 playOutput1 = "Turn " + (turn - 3); 
+         } else {
+        	 playOutput1 = "";
+         } // if
+         
          // set instructions to execute computer turn
          if (isComputerTurn()) {
              playOutput3 = "Press enter to see " + getCurrentPlayer() + "'s turn.";
-         } 
-         // else it is player 1 or 2's turn
-         else {
+         } else {
              playOutput3 = getCurrentPlayer() + " enter your input.";
-         }
+         } // if
          panel.repaint();
          
-    
     } // displayTurn
     
     
