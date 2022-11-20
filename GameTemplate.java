@@ -159,10 +159,13 @@ public class GameTemplate extends JPanel {
             drawString(g, playOutput, 20,30);  
             drawString(g, playOutput1, 600, 30);  
             drawString(g, playOutput5, 20, 200); 
-            drawString(g, playOutput6, 50, 600);
+            
+            g.setColor(Color.blue);
+            g.setFont(new Font("SansSerif", Font.BOLD, 16));
+            drawString(g, playOutput6, 50, 350);
              
-            g.setColor(Color.red);
-            g.setFont(new Font("SansSerif", Font.BOLD, 12));
+            g.setColor(Color.blue);
+            g.setFont(new Font("SansSerif", Font.BOLD, 16));
             drawString(g, playOutput4, 20, 80);
             
             g.setColor(Color.green);
@@ -182,14 +185,13 @@ public class GameTemplate extends JPanel {
 		 else {
 			 g.drawImage(bgImage2, 0, 0, this);
               // set font and colour
-            g.setColor(Color.white);
+            g.setColor(Color.pink);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
             
             // display contents of playOutput strings
             drawString(g, playOutput, 20,50);  
             drawString(g, playOutput1, 20, 100); 
-            drawString(g, playOutput2, 20, 150); 			
-            drawString(g, playOutput3, 20, 200); 
+            drawString(g, playOutput2, 20, 150); 			 
 			drawString(g, playOutput4, 20, 250); 
 		 
           } // else
@@ -229,12 +231,12 @@ public class GameTemplate extends JPanel {
                   if (e.getKeyChar() == Event.ENTER) {
                 	  if ((turn % 2) == 1) {
                 		  if (turn == 1) {
-                			  playOutput5 = "Player 2, please enter a four letter word that is found in the English dictionary. \nThis is your goal word:";
+                			  playOutput5 = "Player 2, please enter a four letter goal word \nthat is found in the English dictionary.";
                 		  } else {
-                			  playOutput5 = "Player 2, please enter a four letter word that is found in the English dictionary. \nThis is your new word:";
+                			  playOutput5 = "Player 2, please enter your new four letter word \nwith one letter changed.";
                 		  } // else 
                 	  } else {
-                		  playOutput5 = "Player 1, please enter a four letter word that is found in the English dictionary. \nThis is your new word:";
+                		  playOutput5 = "Player 1, please enter your new four letter word \nwith one letter changed.";
                 	  } // else
                     saveInput();
                     
@@ -345,7 +347,7 @@ public class GameTemplate extends JPanel {
          
          // set instructions to execute computer turn
          if (isComputerTurn()) {
-             playOutput3 = "Press enter to see " + getCurrentPlayer() + "'s turn.";
+             playOutput3 = "Press enter to see " + getCurrentPlayer() + "'s turn."; // add PL3 this back for computer player
          } else {
              playOutput3 = getCurrentPlayer() + " enter your input.";
          } // if
@@ -363,7 +365,7 @@ public class GameTemplate extends JPanel {
     		 playOutputList += "\n" + currentWord;
     	 } else {
     		 goalWord = dataEntered;
-    		 playOutput6 += "\n" + goalWord;
+    		 playOutput6 += "\n The Goal Word is: " + goalWord;
     	 }
     	 dataEntered = "";  // this will cause dataEntered to get erased
         
@@ -419,8 +421,7 @@ public class GameTemplate extends JPanel {
         
         // text to display
         playOutput = "Begin Play! ";
-        playOutput3 = getCurrentPlayer() + " type something.";
-        playOutput5 = "Player 1, please enter a four letter word that is found in the English dictionary. \nThis is your starting word:";
+        playOutput5 = "Player 1, please enter a four letter start word \nthat is found in the English dictionary.";
         panel.repaint();
 
     } // playGame
@@ -437,5 +438,7 @@ public class GameTemplate extends JPanel {
     } // drawString
 
 } // Even and Odd
+
+
 
 
