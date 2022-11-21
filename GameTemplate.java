@@ -6,6 +6,7 @@
 *			   single and double player options. 
 * Computer:    The computer player is...(continue this later)
 ****************************************************************************************/
+//test this
 
 
 import javax.swing.*;
@@ -22,7 +23,8 @@ public class GameTemplate extends JPanel {
 	
 	static String[] fileContents = getFileContents("dictionary.txt"); // contents of the dictionary file
     
-    static Image bgImage1;              // image displayed while play occurs for part 1
+    
+	static Image bgImage1;              // image displayed while play occurs for part 1
     static Image bgImage2;              // image displayed while play occurs for part 2
     static JPanel panel;                 // main drawing panel
     static JFrame frame;                 // window frame which contains the panel
@@ -30,6 +32,7 @@ public class GameTemplate extends JPanel {
     static final int WINDOW_HEIGHT = 700;// height of display window
 
     static int gameStage = 0;            // stages of game
+    static int gameStage1 = 0;            // stages of game
     static final int WELCOME_SCREEN = 0;
     static final int MENU = 1;
     static final int INSTRUCTIONS = 2;
