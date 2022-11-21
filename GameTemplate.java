@@ -533,4 +533,7 @@ public class GameTemplate extends JPanel {
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2681bf9d6f7ef296e84e522c2bbbb06cb4ee3e52
