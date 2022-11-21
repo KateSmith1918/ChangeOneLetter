@@ -6,7 +6,6 @@
 *			   single and double player options. 
 * Computer:    The computer player is...(continue this later)
 ****************************************************************************************/
-//test this
 
 
 import javax.swing.*;
@@ -32,7 +31,6 @@ public class GameTemplate extends JPanel {
     static final int WINDOW_HEIGHT = 700;// height of display window
 
     static int gameStage = 0;            // stages of game
-    static int gameStage1 = 0;            // stages of game
     static final int WELCOME_SCREEN = 0;
     static final int MENU = 1;
     static final int INSTRUCTIONS = 2;
@@ -301,16 +299,19 @@ public class GameTemplate extends JPanel {
     	
     	// makes sure that the word is 4 letters long
     	if (word.length() != 4) {
+    		playOutput5 = "That input is not 4 characters long";
             return false;
         } // if
     	
     	// makes sure that the input is only one word
     	if (word.contains(" ")) {
+    		playOutput5 = "The input must be only one word (doesn't contain spaces)";
         	return false;
         } // if
     	
     	// determines if the word is in the English dictionary
         if (!isInDictionary(word)) {
+        	playOutput5 = "That word is not found in the English dictionary";
             return false;
         } // if
         
@@ -370,23 +371,6 @@ public class GameTemplate extends JPanel {
         
         return false;
     } // isInDictionary
-    
-    public static String getWordFromUser(int playerNum) { //may delete this later if not needed
-        String word = ""; // the word that is given by the user
-
-        do {
-        	// gets the starting and goal word from users
-            if (playerNum == 1) {
-                	word = "Player 1, please enter a four letter word that is found in the English dictionary. This is your starting word:";
-            } else {
-                	word = "Player 2, please enter a four letter word that is found in the English dictionary. This is your goal word:";
-            } // else if
-            
-            break;
-        } while (true); // do while
-
-        return word;
-    } // getWordFromUser
     
     
     // take computer turn
@@ -456,9 +440,6 @@ public class GameTemplate extends JPanel {
 	         displayTurn();
     	} else {
     		dataEntered = "";  // this will cause dataEntered to get erased
-    		if (turn == 1) {
-    			playOutput5 = "Player 1, please enter a four letter start word \nthat is found in the English dictionary.";
-    		}
     	} // else
     }
     
@@ -528,11 +509,3 @@ public class GameTemplate extends JPanel {
     } // drawString
 
 } // Even and Odd
-
-
-
-
-
-
-
-
