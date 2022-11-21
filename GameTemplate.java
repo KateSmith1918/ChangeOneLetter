@@ -22,8 +22,6 @@ public class GameTemplate extends JPanel {
 	
 	static String[] fileContents = getFileContents("dictionary.txt"); // contents of the dictionary file
     
-	static String testVariable;
-	static String testVariable2;
     static Image bgImage1;              // image displayed while play occurs for part 1
     static Image bgImage2;              // image displayed while play occurs for part 2
     static JPanel panel;                 // main drawing panel
@@ -535,7 +533,3 @@ public class GameTemplate extends JPanel {
 
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 2681bf9d6f7ef296e84e522c2bbbb06cb4ee3e52
