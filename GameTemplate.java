@@ -22,7 +22,6 @@ public class GameTemplate extends JPanel {
 	
 	static String[] fileContents = getFileContents("dictionary.txt"); // contents of the dictionary file
     
-    
 	static Image bgImage1;              // image displayed while play occurs for part 1
     static Image bgImage2;              // image displayed while play occurs for part 2
     static JPanel panel;                 // main drawing panel
@@ -112,8 +111,8 @@ public class GameTemplate extends JPanel {
             
 			
 			// draw a white oval - because we can
-            g.setColor(Color.white );
-            g.fillOval(400, 300, 100, 300);
+            //g.setColor(Color.white );
+            //g.fillOval(400, 300, 100, 300);
 
             
             // welcome words on home screen
@@ -295,29 +294,65 @@ public class GameTemplate extends JPanel {
       return (numPlayers == 1 && turn%2 == 0);
     }
     
+    // makes sure that the word entered is valid
     public static boolean isValidWord(String word) {
     	
     	// makes sure that the word is 4 letters long
     	if (word.length() != 4) {
     		playOutput5 = "That input is not 4 characters long";
+    		panel.repaint();
             return false;
         } // if
     	
     	// makes sure that the input is only one word
     	if (word.contains(" ")) {
     		playOutput5 = "The input must be only one word (doesn't contain spaces)";
+    		panel.repaint();
         	return false;
         } // if
     	
-    	// determines if the word is in the English dictionary
+    	// makes sure the word is in the English dictionary
         if (!isInDictionary(word)) {
         	playOutput5 = "That word is not found in the English dictionary";
+        	panel.repaint();
             return false;
+        } // if
+        
+        // makes sure that the new word is no greater than 1 character different from the current word
+        if (turn > 2) {
+        	if (!isChangeValid(currentWord, word)) {
+        		playOutput5 = "That word is more than one character different from the current word";
+        		panel.repaint();
+        		return false;
+        	} // if
         } // if
         
     	return true;
     } // isValidWord
     
+    // makes sure that the new word is no greater than 1 character different from the current word
+    public static boolean isChangeValid(String currentWord, String newWord) {
+    	char [] currentWordArray = new char[4];
+    	char [] newWordArray = new char[4];
+    	int differentChars = 0;
+    	
+    	currentWordArray = currentWord.toCharArray();
+    	newWordArray = newWord.toCharArray();
+    	
+    	for (int i = 0; i < 4; i++) {
+    		if (currentWordArray[i] != newWordArray[i]) {
+    			differentChars++;
+    		} // if
+    	} // for
+    	
+    	if (differentChars > 1) {
+    		return false;
+    	} // if
+    	
+    	return true;
+    } // isChangeValid
+    
+    // gets the contents of a file
     public static String[] getFileContents(String fileName) {
         String[] contents = null; // the contents of the file 
         int length = 0; // length of file 
@@ -357,6 +392,7 @@ public class GameTemplate extends JPanel {
         return contents;
     } // getFileContents
     
+    // makes sure the word entered by the user is in the English dictionary
     public static boolean isInDictionary(String word) {
         int dictionaryLine = word.charAt(0) - 97; // the only line that the word may be found
 
@@ -384,7 +420,7 @@ public class GameTemplate extends JPanel {
        turn++;
        displayTurn();
        
-    }
+    } // computerTakeTurn
     
     
     // display results from turn
@@ -424,7 +460,7 @@ public class GameTemplate extends JPanel {
 	    	 } else {
 	    		 goalWord = dataEntered;
 	    		 playOutput6 += "\n The Goal Word is: " + goalWord;
-	    	 }
+	    	 } // else
 	    	 dataEntered = "";  // this will cause dataEntered to get erased
 	        
 	         if ((turn % 2) == 1) {
@@ -441,7 +477,7 @@ public class GameTemplate extends JPanel {
     	} else {
     		dataEntered = "";  // this will cause dataEntered to get erased
     	} // else
-    }
+    } // saveInput
     
 
 	// end game.
@@ -453,7 +489,7 @@ public class GameTemplate extends JPanel {
 		 playOutput4 = "Press any key to return to menu";
          gameStage = END_GAME;
          panel.repaint();
-    }
+    } // endGame
 
 
     /* Shuts program down when close button pressed */
