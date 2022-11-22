@@ -22,7 +22,6 @@ public class GameTemplate extends JPanel {
 	
 	static String[] fileContents = getFileContents("dictionary.txt"); // contents of the dictionary file
     
-    static String justATest;
 	static Image bgImage1;              // image displayed while play occurs for part 1
     static Image bgImage2;              // image displayed while play occurs for part 2
     static JPanel panel;                 // main drawing panel
@@ -300,18 +299,21 @@ public class GameTemplate extends JPanel {
     	// makes sure that the word is 4 letters long
     	if (word.length() != 4) {
     		playOutput5 = "That input is not 4 characters long";
+    		panel.repaint();
             return false;
         } // if
     	
     	// makes sure that the input is only one word
     	if (word.contains(" ")) {
     		playOutput5 = "The input must be only one word (doesn't contain spaces)";
+    		panel.repaint();
         	return false;
         } // if
     	
     	// determines if the word is in the English dictionary
         if (!isInDictionary(word)) {
         	playOutput5 = "That word is not found in the English dictionary";
+        	panel.repaint();
             return false;
         } // if
         
