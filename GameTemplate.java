@@ -304,18 +304,18 @@ public class GameTemplate extends JPanel {
             return false;
         } // if
     	
-    	// makes sure that the input is only one word
-    	if (word.contains(" ")) {
-    		playOutput5 = "The input must be only one word (doesn't contain spaces)";
-    		panel.repaint();
-        	return false;
-        } // if
-    	
     	// makes sure the word is in the English dictionary
         if (!isInDictionary(word)) {
         	playOutput5 = "That word is not found in the English dictionary";
         	panel.repaint();
             return false;
+        } // if
+        
+    	// makes sure that the input is only one word
+    	if (word.contains(" ")) {
+    		playOutput5 = "The input must be only one word (doesn't contain spaces)";
+    		panel.repaint();
+        	return false;
         } // if
         
         // makes sure that the new word is no greater than 1 character different from the current word
