@@ -164,7 +164,7 @@ public class GameTemplate extends JPanel {
             // * these have been set in other methods during game play
             drawString(g, playOutput, 20,30);  
             drawString(g, playOutput1, 600, 30);  
-            drawString(g, playOutput5, 20, 200); 
+            drawString(g, playOutput5, 20, 80); 
             
             g.setColor(Color.blue);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
@@ -172,11 +172,11 @@ public class GameTemplate extends JPanel {
              
             g.setColor(Color.blue);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
-            drawString(g, playOutput4, 20, 80);
+            drawString(g, playOutput4, 20, 150);
             
             g.setColor(Color.green);
             g.setFont(new Font("SansSerif", Font.BOLD, 36));
-            drawString(g, playOutput2, 20, 100); 
+            drawString(g, playOutput2, 20, 170); 
             
             // display all turns in a box on right side
             g.setColor(Color.green);
@@ -234,7 +234,7 @@ public class GameTemplate extends JPanel {
 
                   // if user hits enter, record what is typed in
                   if (e.getKeyChar() == Event.ENTER) {
-                    saveInput();
+                	 saveInput();
                     
                     // ends game if goal word is reached
                     if (currentWord.equals(goalWord)) {
@@ -299,21 +299,24 @@ public class GameTemplate extends JPanel {
     	
     	// makes sure that the word is 4 letters long
     	if (word.length() != 4) {
-    		playOutput5 = "That input is not 4 characters long";
+    		playOutput5 = "That input is not 4 characters long. \nPlease try again:";
+    		playOutput2 = "";
     		panel.repaint();
             return false;
         } // if
     	
     	// makes sure the word is in the English dictionary
         if (!isInDictionary(word)) {
-        	playOutput5 = "That word is not found in the English dictionary";
+        	playOutput5 = "That word is not found in the English dictionary. \nPlease try again:";
+        	playOutput2 = "";
         	panel.repaint();
             return false;
         } // if
         
     	// makes sure that the input is only one word
     	if (word.contains(" ")) {
-    		playOutput5 = "The input must be only one word (doesn't contain spaces)";
+    		playOutput5 = "The input must be only one word (can't contain spaces). \nPlease try again:";
+    		playOutput2 = "";
     		panel.repaint();
         	return false;
         } // if
@@ -321,7 +324,8 @@ public class GameTemplate extends JPanel {
         // makes sure that the new word is no greater than 1 character different from the current word
         if (turn > 2) {
         	if (!isChangeValid(currentWord, word)) {
-        		playOutput5 = "That word is more than one character different from the current word";
+        		playOutput5 = "That word is more than one character different from the current word.";
+        		playOutput2 = "";
         		panel.repaint();
         		return false;
         	} // if
@@ -452,7 +456,7 @@ public class GameTemplate extends JPanel {
     // Saves input entered by user into currentWord
     private static void saveInput() {
     
-         // save dataEntered into a more permanent location and reset it
+        // save dataEntered into a more permanent location and reset it
     	if (isValidWord(dataEntered)) {
 	    	 if (turn != 2) {
 	    		 currentWord = dataEntered;
@@ -461,17 +465,17 @@ public class GameTemplate extends JPanel {
 	    		 goalWord = dataEntered;
 	    		 playOutput6 += "\n The Goal Word is: " + goalWord;
 	    	 } // else
-	    	 dataEntered = "";  // this will cause dataEntered to get erased
 	        
-	         if ((turn % 2) == 1) {
-       		  if (turn == 1) {
-       			  playOutput5 = "Player 2, please enter a four letter goal word \nthat is found in the English dictionary.";
-       		  } else {
-       			  playOutput5 = "Player 2, please enter your new four letter word \nwith one letter changed.";
-       		  } // else 
-       	  } else {
-       		  playOutput5 = "Player 1, please enter your new four letter word \nwith one letter changed.";
-       	  } // else
+	    	 if ((turn % 2) == 1) {
+	       		 if (turn == 1) {
+	       			 playOutput5 = "Player 2, please enter a four letter goal word \nthat is found in the English dictionary.";
+	       			 
+	       		  } else {
+	       			  playOutput5 = "Player 2, please enter your new four letter word \nwith one letter changed.";  
+	       		  } // else 
+       	  	  } else {
+       	  		  playOutput5 = "Player 1, please enter your new four letter word \nwith one letter changed.";
+       	  	  } // else
 	         turn++;  // record turn completed
 	         displayTurn();
     	} else {
