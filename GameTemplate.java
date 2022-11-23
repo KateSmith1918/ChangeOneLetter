@@ -470,7 +470,7 @@ public class GameTemplate extends JPanel {
     
         // set up strings for display
          playOutput = "Processing...";
-         playOutput4 = getOtherPlayer() + ": "; 
+         playOutput4 = getCurrentPlayer() + " :"; 
          playOutput2 = "";
         
          // display the turn after the start and goal words are set
@@ -493,7 +493,7 @@ public class GameTemplate extends JPanel {
     
     // Saves input entered by user into currentWord
     private static void saveInput() {
-    
+    	
         // save dataEntered into a more permanent location and reset it
     	if (isValidWord(dataEntered)) {
 	    	 if (turn != 2) {
@@ -503,7 +503,8 @@ public class GameTemplate extends JPanel {
 	    		 goalWord = dataEntered;
 	    		 playOutput6 += "\n The Goal Word is: " + goalWord;
 	    	 } // else
-	        
+	    	 
+	    	 // if turn is odd 
 	    	 if ((turn % 2) == 1) {
 	       		 if (turn == 1) {
 	       			 playOutput5 = playerTwoName + ", please enter a four letter goal word \nthat is found in the English dictionary.";
@@ -527,7 +528,6 @@ public class GameTemplate extends JPanel {
 	    	if (name == 0) {
 	    		playerOneName = dataEntered;
 	    		playOutput5 = "Player 2, Please enter your name?: ";
-	    		
 	    		panel.repaint();
 	    		
 	    	} else {
@@ -624,9 +624,6 @@ public class GameTemplate extends JPanel {
     } // drawString
 
 } // Even and Odd
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> 4958379e7f4fa47955e20bfee584549562948c4a
