@@ -507,7 +507,7 @@ public class GameTemplate extends JPanel {
 	        
 	    	 if ((turn % 2) == 1) {
 	       		 if (turn == 1) {
-	       			 playOutput5 = getCurrentPlayer() + ", please enter a four letter goal word \nthat is found in the English dictionary.";
+	       			 playOutput5 =  getCurrentPlayer()+ ", please enter a four letter goal word \nthat is found in the English dictionary.";
 	       			 
 	       		  } else {
 	       			  playOutput5 = getCurrentPlayer() + ", please enter your new four letter word \nwith one letter changed.";  
