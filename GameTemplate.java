@@ -312,7 +312,7 @@ public class GameTemplate extends JPanel {
         if (numPlayers == 2) {
             return (turn % 2 != 0) ? playerOneName :  playerTwoName; 
         } else {
-            return (turn % 2 != 0) ?  playerOneName : "Computer";
+            return (turn % 2 != 0) ?  playerOneName : playerTwoName;
         } // else
     
     } // getCurrentPlayer
@@ -322,7 +322,7 @@ public class GameTemplate extends JPanel {
         if (numPlayers == 2) {
             return (turn % 2 == 0) ?  playerOneName :  playerTwoName;
         } else {
-            return (turn % 2 == 0) ? playerOneName : "Computer";
+            return (turn % 2 == 0) ? playerOneName : playerTwoName;
         }
     
     } // getCurrentPlayer
@@ -470,8 +470,8 @@ public class GameTemplate extends JPanel {
     
         // set up strings for display
          playOutput = "Processing...";
-         playOutput4 = getOtherPlayer() + ": ";
-         playOutput2 = currentWord; // this is a problem for the name asking
+         playOutput4 = getOtherPlayer() + ": "; 
+         playOutput2 = "";
         
          // display the turn after the start and goal words are set
          if (turn > 2) {
@@ -521,23 +521,29 @@ public class GameTemplate extends JPanel {
     } // saveInput
     
     private static void saveNames() {
-    	playOutput2 = dataEntered;
+    	playOutput2 = "";
     	
-    	if (name == 0) {
-    		playerOneName = dataEntered;
-    		playOutput5 = "Player 2, Please enter your name?: ";
-    		
-    		panel.repaint();
-    		
-    	} else if (name == 1) {
-    		playerTwoName = dataEntered;
-    		panel.repaint();
+    	if (numPlayers == 2) {
+	    	if (name == 0) {
+	    		playerOneName = dataEntered;
+	    		playOutput5 = "Player 2, Please enter your name?: ";
+	    		
+	    		panel.repaint();
+	    		
+	    	} else {
+	    		playerTwoName = dataEntered;
+	    		panel.repaint();
+	    		startGame();
+	    	} // else
+	    	name++;
+	    	dataEntered = "";  // this will cause dataEntered to get erased
     	} else {
+    		playerOneName = dataEntered;
+    		playerTwoName = "Computer";
     		panel.repaint();
+    		dataEntered = "";  // this will cause dataEntered to get erased
     		startGame();
-    	} // else
-    	name++;
-    	dataEntered = "";  // this will cause dataEntered to get erased
+    	}
     } // save names
     
     
@@ -618,6 +624,9 @@ public class GameTemplate extends JPanel {
     } // drawString
 
 } // Even and Odd
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 4958379e7f4fa47955e20bfee584549562948c4a
