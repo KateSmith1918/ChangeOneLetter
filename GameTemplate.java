@@ -1,3 +1,4 @@
+
 /***************************************************************************************
 * Name:        Change One letter Game
 * Author:      Kate S and Daniel K
@@ -256,8 +257,8 @@ public class GameTemplate extends JPanel {
 
 	// add key typed to dataEntered
     private static void recordKey(char key) {
-        
-    	// backspace pressed -> removes characters
+
+        // backspace pressed -> removes characters
          if (key == 8 && dataEntered.length() > 0) {
               dataEntered = dataEntered.substring(0,dataEntered.length()-1);
          } // if
@@ -269,7 +270,7 @@ public class GameTemplate extends JPanel {
          playOutput4 = getCurrentPlayer() + " entered ";
          playOutput2 = dataEntered;
          panel.repaint();
-            }    
+    }    
 
     // returns name of currentPlayer
     private static String getCurrentPlayer(){ //change this to asking for a name
@@ -471,14 +472,14 @@ public class GameTemplate extends JPanel {
 	    	 if ((turn % 2) == 1) {
 	       		 if (turn == 1) {
 	       			 playOutput5 = "Player 2, please enter a four letter goal word \nthat is found in the English dictionary.";
+	       			 
 	       		  } else {
-	       			  playOutput5 = "Player 2, please enter your new four letter word \nwith one letter changed.";
+	       			  playOutput5 = "Player 2, please enter your new four letter word \nwith one letter changed.";  
 	       		  } // else 
        	  	  } else {
        	  		  playOutput5 = "Player 1, please enter your new four letter word \nwith one letter changed.";
        	  	  } // else
 	         turn++;  // record turn completed
-	         playOutput2 = "";
 	         displayTurn();
     	} else {
     		dataEntered = "";  // this will cause dataEntered to get erased
