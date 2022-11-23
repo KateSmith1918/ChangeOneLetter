@@ -618,7 +618,6 @@ public class GameTemplate extends JPanel {
     } // drawString
 
 } // Even and Odd
-<<<<<<< HEAD
-=======
 
->>>>>>> 510e8dc73c084f7ac9fb060c036239e08e8ed392
+
+
