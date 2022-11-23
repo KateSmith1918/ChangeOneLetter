@@ -1,4 +1,3 @@
-
 /***************************************************************************************
 * Name:        Change One letter Game
 * Author:      Kate S and Daniel K
@@ -507,13 +506,13 @@ public class GameTemplate extends JPanel {
 	        
 	    	 if ((turn % 2) == 1) {
 	       		 if (turn == 1) {
-	       			 playOutput5 =  getCurrentPlayer()+ ", please enter a four letter goal word \nthat is found in the English dictionary.";
+	       			 playOutput5 = playerTwoName + ", please enter a four letter goal word \nthat is found in the English dictionary.";
 	       			 
 	       		  } else {
-	       			  playOutput5 = getCurrentPlayer() + ", please enter your new four letter word \nwith one letter changed.";  
+	       			  playOutput5 = playerTwoName + ", please enter your new four letter word \nwith one letter changed.";  
 	       		  } // else 
        	  	  } else {
-       	  		  playOutput5 = getCurrentPlayer() + ", please enter your new four letter word \nwith one letter changed.";
+       	  		  playOutput5 = playerOneName + ", please enter your new four letter word \nwith one letter changed.";
        	  	  } // else
 	         turn++;  // record turn completed
 	         displayTurn();
@@ -527,9 +526,12 @@ public class GameTemplate extends JPanel {
     	if (name == 0) {
     		playerOneName = dataEntered;
     		playOutput5 = "Player 2, Please enter your name?: ";
-    		name++;
+    		
+    		panel.repaint();
+    		
     	} else if (name == 1) {
     		playerTwoName = dataEntered;
+    		panel.repaint();
     	} else {
     		panel.repaint();
     		startGame();
@@ -587,7 +589,7 @@ public class GameTemplate extends JPanel {
         
         // text to display
         playOutput = "Begin Play! ";
-        playOutput5 =  getCurrentPlayer() + ", please enter a four letter start word \nthat is found in the English dictionary.";
+        playOutput5 =  playerOneName + ", please enter a four letter start word \nthat is found in the English dictionary.";
         panel.repaint();
 
     } // playGame
@@ -616,5 +618,3 @@ public class GameTemplate extends JPanel {
     } // drawString
 
 } // Even and Odd
-
-
