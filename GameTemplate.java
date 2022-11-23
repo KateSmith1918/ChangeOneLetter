@@ -436,7 +436,7 @@ public class GameTemplate extends JPanel {
         // set up strings for display
          playOutput = "Processing...";
          playOutput4 = getOtherPlayer() + ": ";
-         playOutput2 = currentWord;
+         playOutput2 = currentWord; // this is a problem for the name asking
         
          // display the turn after the start and goal words are set
          if (turn > 2) {
@@ -481,9 +481,8 @@ public class GameTemplate extends JPanel {
        	  	  } // else
 	         turn++;  // record turn completed
 	         displayTurn();
-    	} else {
-    		dataEntered = "";  // this will cause dataEntered to get erased
-    	} // else
+    	} // if
+    	dataEntered = "";  // this will cause dataEntered to get erased
     } // saveInput
     
 
