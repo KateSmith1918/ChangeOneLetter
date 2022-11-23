@@ -1,7 +1,7 @@
 /***************************************************************************************
 * Name:        Change One letter Game
 * Author:      Kate S and Daniel K
-* Date:        November 30th, 2022
+* Date:        November 30, 2022
 * Purpose:     An interactive and graphical version of the Change One Letter Game with both
 *			   single and double player options. 
 * Computer:    The computer player is...(continue this later)
