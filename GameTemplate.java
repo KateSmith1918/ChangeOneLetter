@@ -521,9 +521,9 @@ public class GameTemplate extends JPanel {
     			// determines what to show the user
         		if ((turn % 2) == 1) {
     	       		 if (turn == 1) {
-    	       			 playOutput5 = playerTwoName + ", will choose the goal word from \nthe English dictionary.";
+    	       			 playOutput5 = "The computer will now choose the goal word from \nthe English dictionary.";
     	       		  } else {
-    	       			  playOutput5 = playerTwoName + ", will choose a new word from \nthe English dictionary with one letter changed.";  
+    	       			  playOutput5 = "The computer will now choose a new word from the \nEnglish dictionary with only 1 letter changed.";  
     	       		  } // else 
           	  	  } else {
           	  		  playOutput5 = playerOneName + ", please enter your new four letter word \nwith one letter changed.";
