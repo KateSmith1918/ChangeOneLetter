@@ -359,7 +359,7 @@ public class GameTemplate extends JPanel {
         // makes sure that the new word is no greater than 1 character different from the current word
         if (turn > 2) {
         	if (!isChangeValid(currentWord, word)) {
-        		playOutput5 = "That word is more than one character different from the current word.";
+        		playOutput5 = "The new word can only be one charatcer different\n that the computer's word. Please try again:";
         		playOutput2 = "";
         		panel.repaint();
         		return false;
@@ -384,7 +384,7 @@ public class GameTemplate extends JPanel {
     		} // if
     	} // for
     	
-    	if (differentChars > 1) {
+    	if (differentChars > 1 || differentChars == 0) {
     		return false;
     	} // if
     	
@@ -467,10 +467,9 @@ public class GameTemplate extends JPanel {
     public static void computerTakeTurn(){
        
     	do {
-    		dataEntered = getComputerWord();
-    		if (dataEntered == currentWord) {
-    			continue;
-    		} // if
+    		do {
+    			dataEntered = getComputerWord();
+    		} while (dataEntered.equals(currentWord) || playOutputList.contains(dataEntered));
     	} while (!isValidWord(dataEntered));
     	displayTurn();
        
@@ -521,9 +520,15 @@ public class GameTemplate extends JPanel {
     			// determines what to show the user
         		if ((turn % 2) == 1) {
     	       		 if (turn == 1) {
+<<<<<<< HEAD
     	       			 playOutput5 = "The computer will now choose the goal word from \nthe English dictionary.";
     	       		  } else {
     	       			  playOutput5 = "The computer will now choose a new word from the \nEnglish dictionary with only 1 letter changed.";  
+=======
+    	       			 playOutput5 = playerTwoName + ", will choose the goal word from \nthe English dictionary. Press Enter to see their word.";
+    	       		  } else {
+    	       			  playOutput5 = playerTwoName + ", will choose a new word from the English dictionary \nwith one letter changed. Press Enter to see their word.";  
+>>>>>>> 1180b53becb107d13ab2abc011cda0c656fc1522
     	       		  } // else 
           	  	  } else {
           	  		  playOutput5 = playerOneName + ", please enter your new four letter word \nwith one letter changed.";
