@@ -520,15 +520,9 @@ public class GameTemplate extends JPanel {
     			// determines what to show the user
         		if ((turn % 2) == 1) {
     	       		 if (turn == 1) {
-<<<<<<< HEAD
-    	       			 playOutput5 = "The computer will now choose the goal word from \nthe English dictionary.";
+    	       			playOutput5 = playerTwoName + ", will choose the goal word from \nthe English dictionary. Press Enter to see their word.";
     	       		  } else {
-    	       			  playOutput5 = "The computer will now choose a new word from the \nEnglish dictionary with only 1 letter changed.";  
-=======
-    	       			 playOutput5 = playerTwoName + ", will choose the goal word from \nthe English dictionary. Press Enter to see their word.";
-    	       		  } else {
-    	       			  playOutput5 = playerTwoName + ", will choose a new word from the English dictionary \nwith one letter changed. Press Enter to see their word.";  
->>>>>>> 1180b53becb107d13ab2abc011cda0c656fc1522
+    	       			 playOutput5 = playerTwoName + ", will choose a new word from the English dictionary \nwith one letter changed. Press Enter to see their word.";  
     	       		  } // else 
           	  	  } else {
           	  		  playOutput5 = playerOneName + ", please enter your new four letter word \nwith one letter changed.";
