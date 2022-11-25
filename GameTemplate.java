@@ -447,7 +447,6 @@ public class GameTemplate extends JPanel {
         return false;
     } // isInDictionary
     
-    
     // computer random word
     public static String getComputerWord() {
     	
@@ -469,6 +468,9 @@ public class GameTemplate extends JPanel {
        
     	do {
     		dataEntered = getComputerWord();
+    		if (dataEntered == currentWord) {
+    			continue;
+    		} // if
     	} while (!isValidWord(dataEntered));
     	displayTurn();
        
@@ -504,6 +506,7 @@ public class GameTemplate extends JPanel {
     // Saves input entered by user into currentWord
     private static void saveInput() {
     	
+    	// save inputs based on the number of players and turn
     	if (numPlayers == 1) {
     		
     		// save dataEntered into a more permanent location 
@@ -518,9 +521,9 @@ public class GameTemplate extends JPanel {
     			// determines what to show the user
         		if ((turn % 2) == 1) {
     	       		 if (turn == 1) {
-    	       			 playOutput5 = playerTwoName + ", the computer will choose the goal word from \nthe English dictionary.";
+    	       			 playOutput5 = playerTwoName + ", will choose the goal word from \nthe English dictionary.";
     	       		  } else {
-    	       			  playOutput5 = playerTwoName + ", the computer will choose a new word from \nthe English dictionary with one letter changed.";  
+    	       			  playOutput5 = playerTwoName + ", will choose a new word from \nthe English dictionary with one letter changed.";  
     	       		  } // else 
           	  	  } else {
           	  		  playOutput5 = playerOneName + ", please enter your new four letter word \nwith one letter changed.";
@@ -645,10 +648,9 @@ public class GameTemplate extends JPanel {
     	// text to display
     	playOutput = "Welcome, Lets get started!";
     	playOutput5 = "Player 1, Can you enter your name please?:";
-    	panel.repaint();
-    	
-    	
-    }
+    	panel.repaint();		
+    } // setUpGame
+    
     /*  draw multi-line Strings
      *  author: John Evans
      */
