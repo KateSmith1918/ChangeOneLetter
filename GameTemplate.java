@@ -46,8 +46,6 @@ public class GameTemplate extends JPanel {
     static String currentWord = "";                 // tracks the currentWord
     static String goalWord = "";					//tracks the goalWord
     static int name = 0;
-    
- 
 
     static String playOutput = "";                 // output to panel (begin)
     static String playOutput1 = "";                 // output to panel (turns?)
@@ -58,8 +56,8 @@ public class GameTemplate extends JPanel {
     static String playOutput6 = "";					// output to panel (goal word display)
     static String playOutputList = "";              // output all steps
     static String instructionsText = "";            // instructions
-    static String playerOneName = "";
-    static String playerTwoName = "";
+    static String playerOneName = "";				// name of player one
+    static String playerTwoName = "";				// name of player two
 
     // start main program
 	// * initializes the window for the game
@@ -267,7 +265,6 @@ public class GameTemplate extends JPanel {
                   // computer turn
                   if (isComputerTurn()) {
                       computerTakeTurn();
-                      return;
                   } // if
 
                   // if user hits enter, record what is typed in
@@ -451,34 +448,29 @@ public class GameTemplate extends JPanel {
     } // isInDictionary
     
     
-    // get word from dictionary
-    public static String getComputerGoalWord() {
+    // computer random word
+    public static String getComputerWord() {
     	
-    	int randomLine = (int)Math.random()* 25 ;   	
+    	int randomLine = (int)(Math.random() * 27);
     	
     	String wordLine = fileContents[randomLine];
     	
-    	String [] newWord = wordLine.split (" ", wordLine.length());
+    	String [] newWord = wordLine.split(" ");
     	
-    	int randomIndex = (int)Math.random()* wordLine.length(); 
+    	int randomIndex = (int)((Math.random() * wordLine.length() / 5)); 
     	
-    	String computerGoal = newWord[randomIndex];
+    	String computerWord = newWord[randomIndex];
     
-    	return computerGoal ;
-    } // getComputerGoalWord
+    	return computerWord;
+    } // getComputerWord	
     
     // take computer turn
     public static void computerTakeTurn(){
        
-       // you might process the computer's random input here
-       if(turn == 0) {
-    	   goalWord = getComputerGoalWord();
-    	   System.out.println(goalWord);
-       } // if
-       currentWord = goalWord;
-       playOutputList += "\n" + goalWord;
-       turn++;
-       displayTurn();
+    	do {
+    		dataEntered = getComputerWord();
+    	} while (!isValidWord(dataEntered));
+    	displayTurn();
        
     } // computerTakeTurn
     
@@ -493,7 +485,7 @@ public class GameTemplate extends JPanel {
         
          // display the turn after the start and goal words are set
          if (turn > 2) {
-        	 playOutput1 = "Turn " + (turn - 3); 
+        	 playOutput1 = "Turn " + (turn - 2); 
          } else {
         	 playOutput1 = "";
          } // if
@@ -512,37 +504,58 @@ public class GameTemplate extends JPanel {
     // Saves input entered by user into currentWord
     private static void saveInput() {
     	
-        // save dataEntered into a more permanent location and reset it
-    	
     	if (numPlayers == 1) {
-    		// we need to add the computer stuff in here
-    	
-    	} else {
-	    	if (isValidWord(dataEntered)) {
-		    	 if (turn != 2) {
-		    		 currentWord = dataEntered;
-		    		 playOutputList += "\n" + currentWord;
-		    	 } else {
-		    		 goalWord = dataEntered;
-		    		 playOutput6 += "\n The Goal Word is: " + goalWord;
-		    	 } // else
-		    	 
-		    	 // if turn is odd 
-		    	 if ((turn % 2) == 1) {
-		       		 if (turn == 1) {
-		       			 playOutput5 = playerTwoName + ", please enter a four letter goal word \nthat is found in the English dictionary.";
-		       			 
-		       		  } else {
-		       			  playOutput5 = playerTwoName + ", please enter your new four letter word \nwith one letter changed.";  
-		       		  } // else 
-	       	  	  } else {
-	       	  		  playOutput5 = playerOneName + ", please enter your new four letter word \nwith one letter changed.";
-	       	  	  } // else
-		         turn++;  // record turn completed
-		         displayTurn();
-	    	} // if
-	    	dataEntered = "";  // this will cause dataEntered to get erased
+    		
+    		// save dataEntered into a more permanent location 
+        	if (isValidWord(dataEntered)) {
+    			if (turn != 2) {
+    				currentWord = dataEntered;
+    				playOutputList += "\n" + currentWord;
+    			} else {
+    				goalWord = dataEntered;
+    				playOutput6 += "\n The Goal Word is: " + goalWord;
+    			} // else
+    			// determines what to show the user
+        		if ((turn % 2) == 1) {
+    	       		 if (turn == 1) {
+    	       			 playOutput5 = playerTwoName + ", the computer will choose the goal word from \nthe English dictionary.";
+    	       		  } else {
+    	       			  playOutput5 = playerTwoName + ", the computer will choose a new word from \nthe English dictionary with one letter changed.";  
+    	       		  } // else 
+          	  	  } else {
+          	  		  playOutput5 = playerOneName + ", please enter your new four letter word \nwith one letter changed.";
+          	  	  } // else
+        		turn++;  // record turn completed
+        		displayTurn();
+    		} 
+        	
+    	} else { 
+    		
+    		// save dataEntered into a more permanent location 
+        	if (isValidWord(dataEntered)) {
+    			if (turn != 2) {
+    				currentWord = dataEntered;
+    				playOutputList += "\n" + currentWord;
+    			} else {
+    				goalWord = dataEntered;
+    				playOutput6 += "\n The Goal Word is: " + goalWord;
+    			} // else
+    			// determines what to show the user
+        		if ((turn % 2) == 1) {
+        			if (turn == 1) {
+        				playOutput5 = playerTwoName + ", please enter a four letter goal word \nthat is found in the English dictionary.";
+        			} else {
+        				playOutput5 = playerTwoName + ", please enter your new four letter word \nwith one letter changed.";  
+        			} // else 
+        		} else {
+        			playOutput5 = playerOneName + ", please enter your new four letter word \nwith one letter changed.";
+        		} // else
+        		turn++;  // record turn completed
+        		displayTurn();
+    		} 
+        	
     	} // else
+    	dataEntered = "";  // this will cause dataEntered to get erased
     } // saveInput
     
     private static void saveNames() {
@@ -648,6 +661,3 @@ public class GameTemplate extends JPanel {
     } // drawString
 
 } // Even and Odd
-
-
-
