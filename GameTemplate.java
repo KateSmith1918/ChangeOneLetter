@@ -215,7 +215,9 @@ public class GameTemplate extends JPanel {
          } // if game stage is Play2 
 		 
         // display end of game
-		 else {
+        else {
+        	g.drawImage(bgImage2, 0, 0, this);
+        	// set font and colour
 			 g.drawImage(bgImage2, 0, 0, this);
               // set font and colour
             g.setColor(Color.pink);
@@ -227,7 +229,7 @@ public class GameTemplate extends JPanel {
             drawString(g, playOutput2, 20, 150); 			 
 			drawString(g, playOutput4, 20, 250); 
 		 
-          } // else
+        } // else
     } // paintComponent
 
     /* A class to handle keyboard input from the user.
@@ -248,7 +250,7 @@ public class GameTemplate extends JPanel {
                     case 51:  numPlayers = 2; setUpGame(); break;   	// Key "3" pressed
                     case 52:  System.exit(0);                       	// Key "4" pressed
                 } // switch
-            } 
+            } // if 
 			
             else if (gameStage == PLAY1){
             	if (e.getKeyChar() == Event.ENTER) {
@@ -279,7 +281,7 @@ public class GameTemplate extends JPanel {
                   } else {
                     recordKey(e.getKeyChar());
                   } // else
-			}
+			} // if
 			// if all else fails, show menu
 			else {
                 showMenu();
@@ -302,7 +304,7 @@ public class GameTemplate extends JPanel {
          playOutput4 = getCurrentPlayer() + " entered ";
          playOutput2 = dataEntered;
          panel.repaint();
-    }    
+    } // recordKey
 
     // returns name of currentPlayer
     private static String getCurrentPlayer(){ //change this to asking for a name
@@ -320,14 +322,14 @@ public class GameTemplate extends JPanel {
             return (turn % 2 == 0) ?  playerOneName :  playerTwoName;
         } else {
             return (turn % 2 == 0) ? playerOneName : playerTwoName;
-        }
+        } // else
     
     } // getCurrentPlayer
     
     // returns true if it is the computer's turn
     public static boolean isComputerTurn(){
       return (numPlayers == 1 && turn%2 == 0);
-    }
+    } // isComputerTurn
     
     // makes sure that the word entered is valid
     public static boolean isValidWord(String word) {
@@ -359,7 +361,11 @@ public class GameTemplate extends JPanel {
         // makes sure that the new word is no greater than 1 character different from the current word
         if (turn > 2) {
         	if (!isChangeValid(currentWord, word)) {
+<<<<<<< HEAD
         		playOutput5 = "The new word needs to be one charatcer different\n than the previous word. Please try again:";
+=======
+        		playOutput5 = "The new word must be one charatcer different\n from the current word. Please try again:";
+>>>>>>> 0b1211edfceaf4c477c51ac36695a6a6e2c5e40f
         		playOutput2 = "";
         		panel.repaint();
         		return false;
@@ -450,7 +456,7 @@ public class GameTemplate extends JPanel {
     // computer random word
     public static String getComputerWord() {
     	
-    	int randomLine = (int)(Math.random() * 27);
+    	int randomLine = (int)((Math.random() * 26) + 1);
     	
     	String wordLine = fileContents[randomLine];
     	
@@ -537,7 +543,7 @@ public class GameTemplate extends JPanel {
           	  	  } // else
         		turn++;  // record turn completed
         		displayTurn();
-    		} 
+    		} // if
         	
     	} else { 
     		
@@ -562,12 +568,13 @@ public class GameTemplate extends JPanel {
         		} // else
         		turn++;  // record turn completed
         		displayTurn();
-    		} 
+    		} // if
         	
     	} // else
     	dataEntered = "";  // this will cause dataEntered to get erased
     } // saveInput
     
+    // saves the name(s) entered by the user(s) into their respective locations
     private static void saveNames() {
     	playOutput2 = "";
     	
@@ -590,7 +597,7 @@ public class GameTemplate extends JPanel {
     		panel.repaint();
     		dataEntered = "";  // this will cause dataEntered to get erased
     		startGame();
-    	}
+    	} // else
     } // save names
     
     
@@ -648,6 +655,7 @@ public class GameTemplate extends JPanel {
 
     } // playGame
     
+    // prepares for the start of the game and gets the name(s) of the user(s)
     private static void setUpGame() {
     	gameStage = PLAY1;
     	playOutput4 = "";
