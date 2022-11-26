@@ -121,12 +121,12 @@ public class GameTemplate extends JPanel {
             // welcome words on home screen
             g.setColor(Color.black);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));   // set font
-            g.drawString("Welcome to ", 360, 250);
+            g.drawString("Welcome to the ", 360, 250);
             g.drawString("Press any key to continue.",310,350);
 
             g.setColor(Color.blue);
             g.setFont(new Font("SansSerif", Font.BOLD, 36));   // set font
-            g.drawString("Game Template",280,300);  // display
+            g.drawString("Change One Letter Game!",180,300);  // display
 
  
         // display menu
@@ -168,7 +168,7 @@ public class GameTemplate extends JPanel {
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
             drawString(g, playOutput5, 20, 200);
             
-            g.setColor(Color.green);
+            g.setColor(Color.black);
             g.setFont(new Font("SansSerif", Font.BOLD, 36));
             drawString(g, playOutput2, 20, 220); 
             
@@ -201,23 +201,23 @@ public class GameTemplate extends JPanel {
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
             drawString(g, playOutput4, 20, 150);
             
-            g.setColor(Color.green);
+            g.setColor(Color.black);
             g.setFont(new Font("SansSerif", Font.BOLD, 36));
             drawString(g, playOutput2, 20, 170); 
             
             // display all turns in a box on right side
-            g.setColor(Color.green);
+            g.setColor(Color.black);
 			g.drawRect (580, 100, 200, 400);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
             drawString(g, playOutputList, 600, 120); 
             
 
-         } 
+         } // if game stage is Play2 
 		 
-		 // display end of game
-		 else {
-			 g.drawImage(bgImage2, 0, 0, this);
-              // set font and colour
+        // display end of game
+        else {
+        	g.drawImage(bgImage2, 0, 0, this);
+        	// set font and colour
             g.setColor(Color.pink);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
             
@@ -227,7 +227,7 @@ public class GameTemplate extends JPanel {
             drawString(g, playOutput2, 20, 150); 			 
 			drawString(g, playOutput4, 20, 250); 
 		 
-          } // else
+        } // else
     } // paintComponent
 
     /* A class to handle keyboard input from the user.
@@ -248,7 +248,7 @@ public class GameTemplate extends JPanel {
                     case 51:  numPlayers = 2; setUpGame(); break;   	// Key "3" pressed
                     case 52:  System.exit(0);                       	// Key "4" pressed
                 } // switch
-            } 
+            } // if 
 			
             else if (gameStage == PLAY1){
             	if (e.getKeyChar() == Event.ENTER) {
@@ -279,7 +279,7 @@ public class GameTemplate extends JPanel {
                   } else {
                     recordKey(e.getKeyChar());
                   } // else
-			}
+			} // if
 			// if all else fails, show menu
 			else {
                 showMenu();
@@ -302,7 +302,7 @@ public class GameTemplate extends JPanel {
          playOutput4 = getCurrentPlayer() + " entered ";
          playOutput2 = dataEntered;
          panel.repaint();
-    }    
+    } // recordKey
 
     // returns name of currentPlayer
     private static String getCurrentPlayer(){ //change this to asking for a name
@@ -320,14 +320,14 @@ public class GameTemplate extends JPanel {
             return (turn % 2 == 0) ?  playerOneName :  playerTwoName;
         } else {
             return (turn % 2 == 0) ? playerOneName : playerTwoName;
-        }
+        } // else
     
     } // getCurrentPlayer
     
     // returns true if it is the computer's turn
     public static boolean isComputerTurn(){
       return (numPlayers == 1 && turn%2 == 0);
-    }
+    } // isComputerTurn
     
     // makes sure that the word entered is valid
     public static boolean isValidWord(String word) {
@@ -359,7 +359,7 @@ public class GameTemplate extends JPanel {
         // makes sure that the new word is no greater than 1 character different from the current word
         if (turn > 2) {
         	if (!isChangeValid(currentWord, word)) {
-        		playOutput5 = "The new word can only be one charatcer different\n that the computer's word. Please try again:";
+        		playOutput5 = "The new word must be one charatcer different\n from the current word. Please try again:";
         		playOutput2 = "";
         		panel.repaint();
         		return false;
@@ -529,7 +529,7 @@ public class GameTemplate extends JPanel {
           	  	  } // else
         		turn++;  // record turn completed
         		displayTurn();
-    		} 
+    		} // if
         	
     	} else { 
     		
@@ -554,12 +554,13 @@ public class GameTemplate extends JPanel {
         		} // else
         		turn++;  // record turn completed
         		displayTurn();
-    		} 
+    		} // if
         	
     	} // else
     	dataEntered = "";  // this will cause dataEntered to get erased
     } // saveInput
     
+    // saves the name(s) entered by the user(s) into their respective locations
     private static void saveNames() {
     	playOutput2 = "";
     	
@@ -582,7 +583,7 @@ public class GameTemplate extends JPanel {
     		panel.repaint();
     		dataEntered = "";  // this will cause dataEntered to get erased
     		startGame();
-    	}
+    	} // else
     } // save names
     
     
@@ -639,9 +640,13 @@ public class GameTemplate extends JPanel {
 
     } // playGame
     
+    // prepares for the start of the game and gets the name(s) of the user(s)
     private static void setUpGame() {
     	gameStage = PLAY1;
-    	
+    	playOutput4 = "";
+    	playOutput1 = "";
+    	playOutput2 = "";
+    	playOutput = "";
     	name = 0;
     	 
     	// text to display
