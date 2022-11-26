@@ -361,11 +361,7 @@ public class GameTemplate extends JPanel {
         // makes sure that the new word is no greater than 1 character different from the current word
         if (turn > 2) {
         	if (!isChangeValid(currentWord, word)) {
-<<<<<<< HEAD
-        		playOutput5 = "The new word needs to be one charatcer different\n than the previous word. Please try again:";
-=======
         		playOutput5 = "The new word must be one charatcer different\n from the current word. Please try again:";
->>>>>>> 0b1211edfceaf4c477c51ac36695a6a6e2c5e40f
         		playOutput2 = "";
         		panel.repaint();
         		return false;
