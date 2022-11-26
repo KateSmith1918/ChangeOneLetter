@@ -117,7 +117,6 @@ public class GameTemplate extends JPanel {
             //g.setColor(Color.white );
             //g.fillOval(400, 300, 100, 300);
 
-            
             // welcome words on home screen
             g.setColor(Color.black);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));   // set font
@@ -215,9 +214,15 @@ public class GameTemplate extends JPanel {
          } // if game stage is Play2 
 		 
         // display end of game
+<<<<<<< HEAD
         else {
         	g.drawImage(bgImage2, 0, 0, this);
         	// set font and colour
+=======
+		 else {
+			 g.drawImage(bgImage2, 0, 0, this);
+              // set font and colour
+>>>>>>> 76a7f3fb7ab7da33314b74045aab35262769f431
             g.setColor(Color.pink);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
             
@@ -480,7 +485,6 @@ public class GameTemplate extends JPanel {
     public static void displayTurn(){
     
         // set up strings for display
-         playOutput = "Processing...";
          playOutput4 = getCurrentPlayer() + " :"; 
          playOutput2 = "";
         
