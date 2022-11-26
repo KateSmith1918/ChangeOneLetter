@@ -214,15 +214,11 @@ public class GameTemplate extends JPanel {
          } // if game stage is Play2 
 		 
         // display end of game
-<<<<<<< HEAD
         else {
         	g.drawImage(bgImage2, 0, 0, this);
         	// set font and colour
-=======
-		 else {
 			 g.drawImage(bgImage2, 0, 0, this);
               // set font and colour
->>>>>>> 76a7f3fb7ab7da33314b74045aab35262769f431
             g.setColor(Color.pink);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
             
