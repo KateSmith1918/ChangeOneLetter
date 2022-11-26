@@ -451,7 +451,7 @@ public class GameTemplate extends JPanel {
     // computer random word
     public static String getComputerWord() {
     	
-    	int randomLine = (int)(Math.random() * 27);
+    	int randomLine = (int)((Math.random() * 26) + 1);
     	
     	String wordLine = fileContents[randomLine];
     	
