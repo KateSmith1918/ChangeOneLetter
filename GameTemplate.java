@@ -169,12 +169,9 @@ public class GameTemplate extends JPanel {
             
             g.setColor(Color.black);
             g.setFont(new Font("SansSerif", Font.BOLD, 36));
-            drawString(g, playOutput2, 20, 220); 
+            drawString(g, playOutput2, 20, 220);
             
-        
-        	// display game play
-            // * if you want different types of display for different
-            // * parts of the play, add additional stages (ie PLAY2, PLAY3 etc)
+            
         } else if (gameStage == PLAY2) {
             
             g.setColor(new Color(24,160,202));
@@ -199,6 +196,10 @@ public class GameTemplate extends JPanel {
             g.setColor(Color.blue);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
             drawString(g, playOutput4, 20, 150);
+            
+            g.setColor(Color.orange);
+            g.setFont(new Font("SansSerif", Font.BOLD, 16));
+            drawString(g, playOutput3, 50, 150);
             
             g.setColor(Color.black);
             g.setFont(new Font("SansSerif", Font.BOLD, 36));
@@ -268,13 +269,13 @@ public class GameTemplate extends JPanel {
 
                   // if user hits enter, record what is typed in
                   if (e.getKeyChar() == Event.ENTER) {
-                	 saveInput();
+                	  saveInput();      
                     
-                    // ends game if goal word is reached
+                	// ends game if goal word is reached
                     if (currentWord.equals(goalWord)) {
                   	  endGame();
                     } // if
-                    
+                      
                   } else {
                     recordKey(e.getKeyChar());
                   } // else
@@ -330,7 +331,7 @@ public class GameTemplate extends JPanel {
     
     // makes sure that the word entered is valid
     public static boolean isValidWord(String word) {
-    	
+    
     	// makes sure that the word is 4 letters long
     	if (word.length() != 4) {
     		playOutput5 = "That input is not 4 characters long. \nPlease try again:";
@@ -358,7 +359,7 @@ public class GameTemplate extends JPanel {
         // makes sure that the new word is no greater than 1 character different from the current word
         if (turn > 2) {
         	if (!isChangeValid(currentWord, word)) {
-        		playOutput5 = "The new word can only be one charatcer different\n that the computer's word. Please try again:";
+        		playOutput5 = "The new word needs to be one charatcer different\n than the previous word. Please try again:";
         		playOutput2 = "";
         		panel.repaint();
         		return false;
@@ -477,24 +478,33 @@ public class GameTemplate extends JPanel {
     
     // display results from turn
     public static void displayTurn(){
-    
-        // set up strings for display
-         playOutput4 = getCurrentPlayer() + " :"; 
-         playOutput2 = "";
-        
-         // display the turn after the start and goal words are set
+    	 
+    	 playOutput2 = "";
+         
+    	 // display the turn after the start and goal words are set
          if (turn > 2) {
         	 playOutput1 = "Turn " + (turn - 2); 
          } else {
         	 playOutput1 = "";
          } // if
          
-         // set instructions to execute computer turn
-         if (isComputerTurn()) {
-             playOutput3 = "Press enter to see " + getCurrentPlayer() + "'s turn."; // add PL3 this back for computer player
+         // show who's turn it is
+         if (numPlayers == 2) {
+        	 playOutput4 = getCurrentPlayer() + ":";  
          } else {
-             playOutput3 = getCurrentPlayer() + " enter your input.";
+        	 playOutput4 = "";
          } // if
+         
+	     if(numPlayers == 1)
+         // set instructions to execute computer turn
+	         if (isComputerTurn()) {
+	             playOutput3 = "Press enter to see " + getCurrentPlayer() + "'s turn."; 
+	         } else {
+	             playOutput3 = getCurrentPlayer() + " enter your input.";
+	         } else {
+	        	 playOutput3 = "";
+	         }
+         
          panel.repaint();
          
     } // displayTurn
@@ -518,9 +528,9 @@ public class GameTemplate extends JPanel {
     			// determines what to show the user
         		if ((turn % 2) == 1) {
     	       		 if (turn == 1) {
-    	       			playOutput5 = playerTwoName + ", will choose the goal word from \nthe English dictionary. Press Enter to see their word.";
+    	       			playOutput5 = playerTwoName + ", will choose the goal word from the English dictionary.";
     	       		  } else {
-    	       			 playOutput5 = playerTwoName + ", will choose a new word from the English dictionary \nwith one letter changed. Press Enter to see their word.";  
+    	       			 playOutput5 = playerTwoName + ", will choose a new word from the English dictionary \nwith one letter changed.";  
     	       		  } // else 
           	  	  } else {
           	  		  playOutput5 = playerOneName + ", please enter your new four letter word \nwith one letter changed.";
@@ -576,7 +586,7 @@ public class GameTemplate extends JPanel {
 	    	dataEntered = "";  // this will cause dataEntered to get erased
     	} else {
     		playerOneName = dataEntered;
-    		playerTwoName = "Computer";
+    		playerTwoName = "Mr.Computer";
     		panel.repaint();
     		dataEntered = "";  // this will cause dataEntered to get erased
     		startGame();
@@ -622,6 +632,7 @@ public class GameTemplate extends JPanel {
         // reset all variables in case of previous game
         playOutputList = "";
         playOutput2 = "";
+        playOutput3 = "";
         playOutput4 = "";
         playOutput6 = "";
         currentWord = " ";
