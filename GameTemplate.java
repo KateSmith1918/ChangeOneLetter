@@ -117,16 +117,15 @@ public class GameTemplate extends JPanel {
             //g.setColor(Color.white );
             //g.fillOval(400, 300, 100, 300);
 
-            
             // welcome words on home screen
             g.setColor(Color.black);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));   // set font
-            g.drawString("Welcome to ", 360, 250);
+            g.drawString("Welcome to the ", 360, 250);
             g.drawString("Press any key to continue.",310,350);
 
             g.setColor(Color.blue);
             g.setFont(new Font("SansSerif", Font.BOLD, 36));   // set font
-            g.drawString("Game Template",280,300);  // display
+            g.drawString("Change One Letter Game!",180,300);  // display
 
  
         // display menu
@@ -641,7 +640,10 @@ public class GameTemplate extends JPanel {
     
     private static void setUpGame() {
     	gameStage = PLAY1;
-    	
+    	playOutput4 = "";
+    	playOutput1 = "";
+    	playOutput2 = "";
+    	playOutput = "";
     	name = 0;
     	 
     	// text to display
