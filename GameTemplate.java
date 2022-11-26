@@ -212,9 +212,9 @@ public class GameTemplate extends JPanel {
             drawString(g, playOutputList, 600, 120); 
             
 
-         } 
+         } // if game stage is Play2 
 		 
-		 // display end of game
+        // display end of game
 		 else {
 			 g.drawImage(bgImage2, 0, 0, this);
               // set font and colour
