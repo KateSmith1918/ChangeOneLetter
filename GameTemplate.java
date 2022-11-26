@@ -168,7 +168,7 @@ public class GameTemplate extends JPanel {
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
             drawString(g, playOutput5, 20, 200);
             
-            g.setColor(Color.green);
+            g.setColor(Color.black);
             g.setFont(new Font("SansSerif", Font.BOLD, 36));
             drawString(g, playOutput2, 20, 220); 
             
@@ -201,12 +201,12 @@ public class GameTemplate extends JPanel {
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
             drawString(g, playOutput4, 20, 150);
             
-            g.setColor(Color.green);
+            g.setColor(Color.black);
             g.setFont(new Font("SansSerif", Font.BOLD, 36));
             drawString(g, playOutput2, 20, 170); 
             
             // display all turns in a box on right side
-            g.setColor(Color.green);
+            g.setColor(Color.black);
 			g.drawRect (580, 100, 200, 400);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
             drawString(g, playOutputList, 600, 120); 
