@@ -479,7 +479,6 @@ public class GameTemplate extends JPanel {
     public static void displayTurn(){
     
         // set up strings for display
-         playOutput = "Processing...";
          playOutput4 = getCurrentPlayer() + " :"; 
          playOutput2 = "";
         
