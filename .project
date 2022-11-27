@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>userFriendlyGoalWords.TXT</name>
+			<type>1</type>
+			<location>C:/Users/Kate Smith/Documents/CS11/ChangeOneLetter/userFriendlyGoalWords.TXT</location>
+		</link>
+	</linkedResources>
 </projectDescription>

@@ -21,6 +21,7 @@ import java.net.URL;
 public class GameTemplate extends JPanel {
 	
 	static String[] fileContents = getFileContents("dictionary.txt"); // contents of the dictionary file
+	static String[] fileGoalContents = getFileGoalContents ("userFriendlyGoalWords"); // contents of the goal words dictionary file
     
 	static Image bgImage1;              // image displayed while play occurs for part 1
     static Image bgImage2;              // image displayed while play occurs for part 2
@@ -361,7 +362,9 @@ public class GameTemplate extends JPanel {
         // makes sure that the new word is no greater than 1 character different from the current word
         if (turn > 2) {
         	if (!isChangeValid(currentWord, word)) {
+
         		playOutput5 = "The new word must be one charatcer different\n from the current word. Please try again:";
+
         		playOutput2 = "";
         		panel.repaint();
         		return false;
@@ -393,7 +396,7 @@ public class GameTemplate extends JPanel {
     	return true;
     } // isChangeValid
     
-    // gets the contents of a file
+    // gets the contents of the dictionary file
     public static String[] getFileContents(String fileName) {
         String[] contents = null; // the contents of the file 
         int length = 0; // length of file 
@@ -433,6 +436,48 @@ public class GameTemplate extends JPanel {
         return contents;
     } // getFileContents
     
+    
+ // gets the contents of the dictionary file
+    public static String[] getFileGoalContents(String fileName) {
+        String[] contents = null; // the contents of the file 
+        int length = 0; // length of file 
+        
+        try {
+            // input
+            String folderName = "/subFolder/"; // if the file is contained in the same folder as the .class file, make this equal to the empty string
+            String resource = fileName;
+
+            // this is the path within the jar file
+            InputStream input = GameTemplate.class.getResourceAsStream(folderName + resource);
+            if (input == null) {
+                // this is how we load file within editor (eg eclipse)
+                input = GameTemplate.class.getClassLoader().getResourceAsStream(resource);
+            } // if
+            BufferedReader in = new BufferedReader(new InputStreamReader(input));
+
+            in.mark(Short.MAX_VALUE); // see API
+
+            // count number of lines in file
+            while ( in .readLine() != null) {
+                length++;
+            } // while
+
+            in.reset(); // rewind the reader to the start of file
+            contents = new String[length]; // give size to contents array
+
+            // read in contents of file and print to screen
+            for (int i = 0; i < length; i++) {
+                contents[i] = in .readLine();
+            } // for
+            in.close();
+        } catch (Exception e) {
+            System.out.println("File Input Error");
+        } // catch
+        
+        return contents;
+    } // getFileContents
+    
+    
     // makes sure the word entered by the user is in the English dictionary
     public static boolean isInDictionary(String word) {
         int dictionaryLine = word.charAt(0) - 97; // the only line that the word may be found
@@ -449,20 +494,36 @@ public class GameTemplate extends JPanel {
         return false;
     } // isInDictionary
     
-    // computer random word
+    // getting a reasonable goal word for the computer player
     public static String getComputerWord() {
+    	
+    	int randomLine = (int)((Math.random() * 26) + 1);
+    	
+    	String wordLine = fileGoalContents[randomLine];
+    	
+    	String [] newWord = wordLine.split(" ");
+    	
+    	int randomIndex = (int)((Math.random() * wordLine.length() / 5)); 
+    	
+    	String computerWord = newWord[randomIndex];
+    
+    	return computerWord;
+    } // getComputerWord
+    
+    // getting the random word for the computer during game play
+    public static String getComputerGoalWord() {
     	
     	int randomLine = (int)((Math.random() * 26) + 1);
     	
     	String wordLine = fileContents[randomLine];
     	
-    	String [] wordsOfLine = wordLine.split(" ");
+    	String [] newWord = wordLine.split(" ");
     	
     	int randomIndex = (int)((Math.random() * wordLine.length() / 5)); 
     	
-    	String computerWord = wordsOfLine[randomIndex];
+    	String computerGoalWord = newWord[randomIndex];
     
-    	return computerWord;
+    	return computerGoalWord;
     } // getComputerWord	
     
     // take computer turn
@@ -470,7 +531,11 @@ public class GameTemplate extends JPanel {
        
     	do {
     		do {
-    			dataEntered = getComputerWord();
+    			if (turn != 1) {
+    				dataEntered = getComputerWord();
+    			} else {
+    				dataEntered = getComputerGoalWord();
+    			} // if
     		} while (dataEntered.equals(currentWord) || playOutputList.contains(dataEntered));
     	} while (!isValidWord(dataEntered));
     	displayTurn();
@@ -530,9 +595,9 @@ public class GameTemplate extends JPanel {
     			// determines what to show the user
         		if ((turn % 2) == 1) {
     	       		 if (turn == 1) {
-    	       			playOutput5 = playerTwoName + ", will choose the goal word from the English dictionary.";
+    	       			playOutput5 = playerTwoName + " will choose the goal word from the English dictionary.";
     	       		  } else {
-    	       			 playOutput5 = playerTwoName + ", will choose a new word from the English dictionary \nwith one letter changed.";  
+    	       			 playOutput5 = playerTwoName + " will choose a new word from the English dictionary \nwith one letter changed.";  
     	       		  } // else 
           	  	  } else {
           	  		  playOutput5 = playerOneName + ", please enter your new four letter word \nwith one letter changed.";
@@ -609,7 +674,7 @@ public class GameTemplate extends JPanel {
     } // endGame
 
 
-    /* Shuts program down when close button pressed */
+    // Shuts program down when close button pressed 
     private static class ExitListener extends WindowAdapter {
         public void windowClosing(WindowEvent event) {
             System.exit(0);
