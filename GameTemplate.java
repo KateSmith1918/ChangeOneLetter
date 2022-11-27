@@ -456,11 +456,11 @@ public class GameTemplate extends JPanel {
     	
     	String wordLine = fileContents[randomLine];
     	
-    	String [] wordsOfLine = wordLine.split(" ");
+    	String [] newWord = wordLine.split(" ");
     	
     	int randomIndex = (int)((Math.random() * wordLine.length() / 5)); 
     	
-    	String computerWord = wordsOfLine[randomIndex];
+    	String computerWord = newWord[randomIndex];
     
     	return computerWord;
     } // getComputerWord	
