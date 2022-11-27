@@ -21,7 +21,8 @@ import java.net.URL;
 public class GameTemplate extends JPanel {
 	
 	static String[] fileContents = getFileContents("dictionary.txt"); // contents of the dictionary file
-    
+	static String[] fileGoalContents = getFileContents ("userFriendlyGoalWords"); // contents of the goal words dictionary file
+	
 	static Image bgImage1;              // image displayed while play occurs for part 1
     static Image bgImage2;              // image displayed while play occurs for part 2
     static JPanel panel;                 // main drawing panel
@@ -361,7 +362,9 @@ public class GameTemplate extends JPanel {
         // makes sure that the new word is no greater than 1 character different from the current word
         if (turn > 2) {
         	if (!isChangeValid(currentWord, word)) {
+        		
         		playOutput5 = "The new word must be one charatcer different\n from the current word. Please try again:";
+        		
         		playOutput2 = "";
         		panel.repaint();
         		return false;
@@ -393,7 +396,7 @@ public class GameTemplate extends JPanel {
     	return true;
     } // isChangeValid
     
-    // gets the contents of a file
+    // gets the contents of the dictionary file
     public static String[] getFileContents(String fileName) {
         String[] contents = null; // the contents of the file 
         int length = 0; // length of file 
@@ -449,28 +452,49 @@ public class GameTemplate extends JPanel {
         return false;
     } // isInDictionary
     
-    // computer random word
+    // getting the random word for the computer during game play
     public static String getComputerWord() {
     	
     	int randomLine = (int)((Math.random() * 26) + 1);
     	
     	String wordLine = fileContents[randomLine];
     	
-    	String [] newWord = wordLine.split(" ");
+    	String [] wordsOfLine = wordLine.split(" ");
     	
     	int randomIndex = (int)((Math.random() * wordLine.length() / 5)); 
     	
-    	String computerWord = newWord[randomIndex];
+    	String computerWord = wordsOfLine[randomIndex];
     
     	return computerWord;
     } // getComputerWord	
     
+
+	// getting a reasonable goal word for the computer player
+	public static String getComputerGoalWord() {
+	
+		int randomLine = (int)((Math.random() * 26) + 1);
+	
+		String wordLine = fileGoalContents[randomLine];
+	
+		String [] wordsOfLine = wordLine.split(" ");
+	
+		int randomIndex = (int)((Math.random() * wordLine.length() / 5)); 
+	
+		String computerGoalWord = wordsOfLine[randomIndex];
+	
+		return computerGoalWord;
+	} // getComputerWord	
+    
     // take computer turn
-    public static void computerTakeTurn(){
+    public static void computerTakeTurn() {
        
     	do {
     		do {
-    			dataEntered = getComputerWord();
+    			if (turn != 1) {
+    				dataEntered = getComputerWord();
+    			} else {
+    				dataEntered = getComputerGoalWord();
+    			} // if
     		} while (dataEntered.equals(currentWord) || playOutputList.contains(dataEntered));
     	} while (!isValidWord(dataEntered));
     	displayTurn();
@@ -530,9 +554,9 @@ public class GameTemplate extends JPanel {
     			// determines what to show the user
         		if ((turn % 2) == 1) {
     	       		 if (turn == 1) {
-    	       			playOutput5 = playerTwoName + ", will choose the goal word from the English dictionary.";
+    	       	          playOutput5 = playerTwoName + " will choose the goal word from the English dictionary.";
     	       		  } else {
-    	       			 playOutput5 = playerTwoName + ", will choose a new word from the English dictionary \nwith one letter changed.";  
+    	       		      playOutput5 = playerTwoName + " will choose a new word from the English dictionary \nwith one letter changed.";
     	       		  } // else 
           	  	  } else {
           	  		  playOutput5 = playerOneName + ", please enter your new four letter word \nwith one letter changed.";
@@ -609,7 +633,7 @@ public class GameTemplate extends JPanel {
     } // endGame
 
 
-    /* Shuts program down when close button pressed */
+    // Shuts program down when close button pressed 
     private static class ExitListener extends WindowAdapter {
         public void windowClosing(WindowEvent event) {
             System.exit(0);
