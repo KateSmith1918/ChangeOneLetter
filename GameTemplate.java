@@ -57,6 +57,7 @@ public class GameTemplate extends JPanel {
     static String playOutput6 = "";					// output to panel (goal word display)
     static String playOutputList = "";              // output all steps
     static String instructionsText = "";            // instructions
+    static String instructionsTitle = "";
     static String playerOneName = "";				// name of player one
     static String playerTwoName = "";				// name of player two
 
@@ -145,6 +146,9 @@ public class GameTemplate extends JPanel {
             g.setFont(new Font("Dialog", Font.BOLD, 36));   // set font
             drawString(g, "Instructions", 280,100);    // display title
             g.setFont(new Font("Dialog", Font.PLAIN, 18));   // set font
+            
+            instructionsTitle = "Instructions";
+            drawString(g, instructionsText, 150, 200);  // display instructions
             
             instructionsText = "The text \nfor the instructions\ngoes here.\nok?";
             drawString(g, instructionsText, 150, 200);  // display instructions
@@ -363,7 +367,6 @@ public class GameTemplate extends JPanel {
         	if (!isChangeValid(currentWord, word)) {
         		
         		playOutput5 = "The new word must be one charatcer different\n from the current word. Please try again:";
-        		
         		playOutput2 = "";
         		panel.repaint();
         		return false;
@@ -520,7 +523,7 @@ public class GameTemplate extends JPanel {
         	 playOutput4 = "";
          } // else
          
-	     if(numPlayers == 1)
+	     if (numPlayers == 1)
          // set instructions to execute computer turn
 	         if (isComputerTurn()) {
 	             playOutput3 = "Press enter to see " + getCurrentPlayer() + "'s turn."; 
@@ -658,7 +661,6 @@ public class GameTemplate extends JPanel {
         // reset all variables in case of previous game
         playOutputList = "";
         playOutput2 = "";
-        playOutput3 = "";
         playOutput4 = "";
         playOutput6 = "";
         currentWord = " ";
@@ -670,7 +672,7 @@ public class GameTemplate extends JPanel {
         // text to display
         playOutput = "Begin Play! ";
         playOutput5 =  playerOneName + ", please enter a four letter start word \nthat is found in the English dictionary.";
-        playOutput3 = getCurrentPlayer() + " please enter the starting word.";
+        playOutput4 = getCurrentPlayer() + ":";  
         panel.repaint();
 
     } // playGame
