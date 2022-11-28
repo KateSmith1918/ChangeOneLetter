@@ -68,9 +68,9 @@ public class GameTemplate extends JPanel {
 
         // Load background images
        
-        URL url = GameTemplate.class.getResource("title4.jpg");
+        URL url = GameTemplate.class.getResource("title7.jpg");
         bgImage1 = tk.getImage(url);
-        url = GameTemplate.class.getResource("title5.jpg");
+        url = GameTemplate.class.getResource("title4.jpg");
         bgImage2 = tk.getImage(url);
         
         // Create Frame and Panel to display graphics in
@@ -108,7 +108,7 @@ public class GameTemplate extends JPanel {
         if (gameStage == WELCOME_SCREEN) {
         	g.drawImage(bgImage1, 0, 0, this);
         	
-        	g.setColor(new Color (50, 150, 175, 150));
+        	g.setColor(new Color (100, 150, 175, 150));
         	g.fillRoundRect (150, 230, 620, 225, 60, 60);
         	
             // welcome words on home screen
