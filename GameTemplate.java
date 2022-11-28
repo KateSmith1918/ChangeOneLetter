@@ -21,7 +21,7 @@ import java.net.URL;
 public class GameTemplate extends JPanel {
 	
 	static String[] fileContents = getFileContents("dictionary.txt"); // contents of the dictionary file
-	static String[] fileGoalContents = getFileContents ("userFriendlyGoalWords.TXT"); // contents of the goal words dictionary file
+	static String[] fileGoalContents = getFileContents("userFriendlyGoalWords.txt"); // contents of the goal words dictionary file
 	
     static Image bgImage1; 
     static Image bgImage2; 
@@ -225,11 +225,12 @@ public class GameTemplate extends JPanel {
             g.setFont(new Font("SansSerif", Font.BOLD, 36));
             drawString(g, playOutput2, 20, 170); 
             
-            /* 
+            g.setColor(Color.black);
+			g.drawRect (580, 100, 200, 400);
+            g.setFont(new Font("SansSerif", Font.BOLD, 16));
+            
             String [] words = playOutputList.split("\n");
-            System.out.println("hllo");
-     
-            System.out.println(words);
+            
             String playOutputList1 = "";
             String playOutputList2 = "";
             String playOutputList3 = "";
@@ -237,29 +238,30 @@ public class GameTemplate extends JPanel {
             
             for (int i = 0; i < words.length; i++) {
             	if (i < 8) {
-            		playOutputList1 = words [i] + "\n"; 
+            		playOutputList1 += words [i] + "\n"; 
+            		drawString(g, playOutputList1, 500, 150);
             	}
             	
             	if (i >= 8 && i < 16) {
-            		playOutputList2 = words [i] + "\n"; 
+            		playOutputList2 += words [i] + "\n"; 
+            		drawString(g, playOutputList2, 600, 150);
             	}
             	
             	if (i >= 16 && i < 24) {
-            		playOutputList3 = words [i] + "\n"; 
+            		playOutputList3 += words [i] + "\n"; 
+            		drawString(g, playOutputList3, 700, 150);
             	}
             	
             	if (i >= 24 && i < 32) {
-            		playOutputList4 = words [i] + "\n"; 
+            		playOutputList4 += words [i] + "\n"; 
+            		drawString(g, playOutputList4, 800, 150);
             	}
             } // for
-            */
+
             
             
             // display all turns in a box on right side
-            g.setColor(Color.black);
-			g.drawRect (580, 100, 200, 400);
-            g.setFont(new Font("SansSerif", Font.BOLD, 16));
-            drawString(g, playOutputList, 500, 120);
+
             
             
 
@@ -292,7 +294,9 @@ public class GameTemplate extends JPanel {
             // quit if the user presses "escape"
             if (e.getKeyChar() == 27) {
                 System.exit(0);
-            } else if (gameStage == MENU) {
+            } else if (e.getKeyChar() == 127) {
+        		showMenu();
+        	} else if (gameStage == MENU) {
 
             // respond to menu selection
                 switch (e.getKeyChar()) {
@@ -309,6 +313,7 @@ public class GameTemplate extends JPanel {
             	} else {
                     recordKey(e.getKeyChar());
                   } // else
+            	
             } // if game stage = play1
         
 			
@@ -328,6 +333,7 @@ public class GameTemplate extends JPanel {
                     if (currentWord.equals(goalWord)) {
                   	  endGame();
                     } // if
+                    
                       
                   } else {
                     recordKey(e.getKeyChar());
@@ -383,7 +389,7 @@ public class GameTemplate extends JPanel {
     
     // makes sure that the word entered is valid
     public static boolean isValidWord(String word) {
-    
+    	
     	// makes sure that the word is 4 letters long
     	if (word.length() != 4) {
     		playOutput5 = "That input is not 4 characters long. \nPlease try again:";
@@ -411,7 +417,6 @@ public class GameTemplate extends JPanel {
         // makes sure that the new word is no greater than 1 character different from the current word
         if (turn > 2) {
         	if (!isChangeValid(currentWord, word)) {
-        		
         		playOutput5 = "The new word must be one charatcer different\n from the current word. Please try again:";
         		playOutput2 = "";
         		panel.repaint();
@@ -538,7 +543,7 @@ public class GameTemplate extends JPanel {
        
     	do {
     		do {
-    			if (turn != 1) {
+    			if (turn != 2) {
     				dataEntered = getComputerWord();
     			} else {
     				dataEntered = getComputerGoalWord();
@@ -587,6 +592,8 @@ public class GameTemplate extends JPanel {
     // Saves input entered by user into currentWord
     private static void saveInput() {
     	
+    	dataEntered = dataEntered.toLowerCase();
+    	
     	// save inputs based on the number of players and turn
     	if (numPlayers == 1) {
     		
@@ -594,7 +601,7 @@ public class GameTemplate extends JPanel {
         	if (isValidWord(dataEntered)) {
     			if (turn != 2) {
     				currentWord = dataEntered;
-    				playOutputList +=  currentWord + "\n";
+    				playOutputList += currentWord + "\n";
     				
     				
     			} else {
@@ -651,25 +658,37 @@ public class GameTemplate extends JPanel {
     	
     	if (numPlayers == 2) {
 	    	if (name == 0) {
-	    		playerOneName = dataEntered;
+	    		playerOneName = firstLetterCapital(dataEntered);
 	    		playOutput5 = "Player 2, Please enter your name?: ";
 	    		panel.repaint();
 	    		
 	    	} else {
-	    		playerTwoName = dataEntered;
+	    		playerTwoName = firstLetterCapital(dataEntered);
 	    		panel.repaint();
 	    		startGame();
 	    	} // else
 	    	name++;
 	    	dataEntered = "";  // this will cause dataEntered to get erased
     	} else {
-    		playerOneName = dataEntered;
+    		playerOneName = firstLetterCapital(dataEntered);
     		playerTwoName = "Mr.Computer";
     		panel.repaint();
     		dataEntered = "";  // this will cause dataEntered to get erased
     		startGame();
     	} // else
     } // save names
+    
+    public static String firstLetterCapital(String word) {
+    	char name [];
+    	
+    	name = word.toCharArray();
+    	name[0] -= 32;
+    	
+    	word = new String(name);
+    	
+    	return word;
+    	
+    }
     
     
 	// end game.
