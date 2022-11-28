@@ -39,10 +39,8 @@ public class GameTemplate extends JPanel {
     static final int END_GAME = 5;
 
     static int numPlayers = 0;                     // number of players
-    static double runningTotal = 0;                // runningTotal of game
     static int turn = 1;                           // current turn of game (starts at turn 1)
     static String dataEntered = "";                 // input from user
-    static boolean resetDataEntered = false;       // used to reset dataEntered to empty string
     static String currentPlayer = "";              // tracks the current player
     static String currentWord = "";                 // tracks the currentWord
     static String goalWord = "";					//tracks the goalWord
