@@ -21,7 +21,7 @@ import java.net.URL;
 public class GameTemplate extends JPanel {
 	
 	static String[] fileContents = getFileContents("dictionary.txt"); // contents of the dictionary file
-	static String[] fileGoalContents = getFileContents ("userFriendlyGoalWords"); // contents of the goal words dictionary file
+	static String[] fileGoalContents = getFileContents ("userFriendlyGoalWords.TXT"); // contents of the goal words dictionary file
 	
 	static Image bgImage1;              // image displayed while play occurs for part 1
     static Image bgImage2;              // image displayed while play occurs for part 2
@@ -302,7 +302,6 @@ public class GameTemplate extends JPanel {
          else {
               dataEntered += (key + "");
          } // else
-         playOutput4 = getCurrentPlayer() + " entered ";
          playOutput2 = dataEntered;
          panel.repaint();
     } // recordKey
@@ -503,7 +502,7 @@ public class GameTemplate extends JPanel {
     
     
     // display results from turn
-    public static void displayTurn(){
+    public static void displayTurn() {
     	 
     	 playOutput2 = "";
          
@@ -512,14 +511,14 @@ public class GameTemplate extends JPanel {
         	 playOutput1 = "Turn " + (turn - 2); 
          } else {
         	 playOutput1 = "";
-         } // if
+         } // else
          
          // show who's turn it is
          if (numPlayers == 2) {
         	 playOutput4 = getCurrentPlayer() + ":";  
          } else {
         	 playOutput4 = "";
-         } // if
+         } // else
          
 	     if(numPlayers == 1)
          // set instructions to execute computer turn
@@ -529,7 +528,7 @@ public class GameTemplate extends JPanel {
 	             playOutput3 = getCurrentPlayer() + " enter your input.";
 	         } else {
 	        	 playOutput3 = "";
-	         }
+	         } // else
          
          panel.repaint();
          
@@ -671,6 +670,7 @@ public class GameTemplate extends JPanel {
         // text to display
         playOutput = "Begin Play! ";
         playOutput5 =  playerOneName + ", please enter a four letter start word \nthat is found in the English dictionary.";
+        playOutput3 = getCurrentPlayer() + " please enter the starting word.";
         panel.repaint();
 
     } // playGame
