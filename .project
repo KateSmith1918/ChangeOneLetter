@@ -14,4 +14,41 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>title.jpg</name>
+			<type>1</type>
+			<location>C:/Users/Kate Smith/Documents/CS11/ChangeOneLetter/title.jpg</location>
+		</link>
+		<link>
+			<name>title1.jpg</name>
+			<type>1</type>
+			<location>C:/Users/Kate Smith/Documents/CS11/ChangeOneLetter/title1.jpg</location>
+		</link>
+		<link>
+			<name>title2.jpg</name>
+			<type>1</type>
+			<location>C:/Users/Kate Smith/Documents/CS11/ChangeOneLetter/title2.jpg</location>
+		</link>
+		<link>
+			<name>title3.jpg</name>
+			<type>1</type>
+			<location>C:/Users/Kate Smith/Documents/CS11/ChangeOneLetter/title3.jpg</location>
+		</link>
+		<link>
+			<name>title4.jpg</name>
+			<type>1</type>
+			<location>C:/Users/Kate Smith/Documents/CS11/ChangeOneLetter/title4.jpg</location>
+		</link>
+		<link>
+			<name>title5.jpg</name>
+			<type>1</type>
+			<location>C:/Users/Kate Smith/Documents/CS11/ChangeOneLetter/title5.jpg</location>
+		</link>
+		<link>
+			<name>titlebackground.jpg</name>
+			<type>1</type>
+			<location>C:/Users/Kate Smith/Documents/CS11/ChangeOneLetter/titlebackground.jpg</location>
+		</link>
+	</linkedResources>
 </projectDescription>
