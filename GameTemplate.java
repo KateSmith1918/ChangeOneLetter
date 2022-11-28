@@ -234,34 +234,28 @@ public class GameTemplate extends JPanel {
             String playOutputList3 = "";
             String playOutputList4 = "";
             
+            // display all turns in a box on right side
             for (int i = 0; i < words.length; i++) {
-            	if (i < 8) {
+            	if (i < 10) {
             		playOutputList1 += words [i] + "\n"; 
             		drawString(g, playOutputList1, 500, 150);
             	}
             	
-            	if (i >= 8 && i < 16) {
+            	if (i >= 10 && i < 20) {
             		playOutputList2 += words [i] + "\n"; 
             		drawString(g, playOutputList2, 600, 150);
             	}
             	
-            	if (i >= 16 && i < 24) {
+            	if (i >= 20 && i < 30) {
             		playOutputList3 += words [i] + "\n"; 
             		drawString(g, playOutputList3, 700, 150);
             	}
             	
-            	if (i >= 24 && i < 32) {
+            	if (i >= 30 && i < 40) {
             		playOutputList4 += words [i] + "\n"; 
             		drawString(g, playOutputList4, 800, 150);
             	}
-            } // for
-
-            
-            
-            // display all turns in a box on right side
-
-            
-            
+            } // for 
 
          } // if game stage is Play2 
 		 
@@ -421,6 +415,9 @@ public class GameTemplate extends JPanel {
         		return false;
         	} // if
         } // if
+        do {
+        	
+    } while (goalWord == currentWord || !isChangeValid(goalWord, currentWord)); //???
         
     	return true;
     } // isValidWord
@@ -546,12 +543,18 @@ public class GameTemplate extends JPanel {
     			} else {
     				dataEntered = getComputerGoalWord();
     			} // if
-    		} while (dataEntered.equals(currentWord) || playOutputList.contains(dataEntered));
+    		} while (dataEntered.equals(currentWord));
     	} while (!isValidWord(dataEntered));
     	displayTurn();
        
     } // computerTakeTurn
     
+    // playOutputList.contains(dataEntered)
+    
+    public static String goodComputer(){
+    	// this is where we code good computer
+    	return "nothing";
+    }
     
     // display results from turn
     public static void displayTurn() {
@@ -600,8 +603,6 @@ public class GameTemplate extends JPanel {
     			if (turn != 2) {
     				currentWord = dataEntered;
     				playOutputList += currentWord + "\n";
-    				
-    				
     			} else {
     				goalWord = dataEntered;
     				playOutput6 += "\n The Goal Word is: " + goalWord;
@@ -677,7 +678,7 @@ public class GameTemplate extends JPanel {
     } // save names
     
     public static String firstLetterCapital(String word) {
-    	char name [];
+    	char name[];
     	
     	name = word.toCharArray();
     	name[0] -= 32;
@@ -686,8 +687,7 @@ public class GameTemplate extends JPanel {
     	
     	return word;
     	
-    }
-    
+    } // firstLetterCapital
     
 	// end game.
     private static void endGame() {
