@@ -536,26 +536,36 @@ public class GameTemplate extends JPanel {
     // take computer turn
     public static void computerTakeTurn() {
        
-    	do {
-    		do {
-    			if (turn != 2) {
-    				dataEntered = goodComputerWord(currentWord);
-    			} else {
-    				dataEntered = getComputerGoalWord();
-    			} // if
-    		} while (dataEntered.equals(currentWord));
-    	} while (!isValidWord(dataEntered));
-    	displayTurn();
+    	try {
+	    	do {
+	    		do {
+	    			if (turn != 2) {
+	    				dataEntered = goodComputerWord();
+	    			} else {
+	    				dataEntered = getComputerGoalWord();
+	    			} // if
+	    		} while (dataEntered.equals(currentWord));
+	    	} while (!isValidWord(dataEntered));
+	    	displayTurn();
+    	} catch (Exception e){
+    		
+    	}
        
     } // computerTakeTurn
     
     // playOutputList.contains(dataEntered)
     
-    public static String goodComputerWord(String currentWord){
+    public static String goodComputerWord(){
     	char currentWordArray[] = currentWord.toCharArray();
+    	char goalWordArray[] = goalWord.toCharArray();
     	String newWordTest = "";
     	String possibleWords[] = new String[104];
     	int numPossibleWords = 0;
+    	char possibleWordsArray[];
+    	String similarWords[] = new String[104];
+    	int numSimilarWords = 0;
+    	int bestChars = 0;
+    	int similarChars = 0;
     	String newWord = "";
     	
     	
@@ -571,7 +581,30 @@ public class GameTemplate extends JPanel {
     		currentWordArray[i] = currentWord.charAt(i);
     	} // for
 
-    	newWord = possibleWords[(int)((Math.random() * numPossibleWords) + 1)];
+    	for (int i = 0; i < numPossibleWords; i++) {
+    		System.out.println(possibleWords[i]);
+    	}
+    	
+    	for (int i = 0; i < numPossibleWords; i++) {
+    		possibleWordsArray = possibleWords[i].toCharArray();
+    		for (int j = 0; j < 4; j++) {
+    			if (possibleWordsArray[j] == goalWordArray[j]) {
+    				similarChars++;
+    				System.out.println(similarChars);
+    			} // if
+    		} // for
+    		if (similarChars >= bestChars) {
+    			bestChars = similarChars;
+    			numSimilarWords++;
+    			similarWords[i] = new String(possibleWordsArray);
+    		} // if
+    		similarChars = 0;
+    	} // for 
+    	
+    	newWord = similarWords[(int)(Math.random() * numSimilarWords)];
+    	if (newWord == "") {
+        	newWord = possibleWords[(int)(Math.random() * numPossibleWords)];
+    	}
     	
     	return newWord;
     } // goodComputerWord
