@@ -415,9 +415,9 @@ public class GameTemplate extends JPanel {
         		return false;
         	} // if
         } // if
-        do {
+        //do {
         	
-    } while (goalWord == currentWord || !isChangeValid(goalWord, currentWord)); //???
+        //} while (goalWord == currentWord || !isChangeValid(goalWord, currentWord)); //???
         
     	return true;
     } // isValidWord
@@ -539,7 +539,7 @@ public class GameTemplate extends JPanel {
     	do {
     		do {
     			if (turn != 2) {
-    				dataEntered = getComputerWord();
+    				dataEntered = goodComputerWord(currentWord);
     			} else {
     				dataEntered = getComputerGoalWord();
     			} // if
@@ -551,10 +551,30 @@ public class GameTemplate extends JPanel {
     
     // playOutputList.contains(dataEntered)
     
-    public static String goodComputer(){
-    	// this is where we code good computer
-    	return "nothing";
-    }
+    public static String goodComputerWord(String currentWord){
+    	char currentWordArray[] = currentWord.toCharArray();
+    	String newWordTest = "";
+    	String possibleWords[] = new String[104];
+    	int numPossibleWords = 0;
+    	String newWord = "";
+    	
+    	
+    	for (int i = 0; i < 4; i++) {
+    		for (int j = 0; j < 26; j++) {
+    			currentWordArray[i] = (char)(j + 97);
+    			newWordTest = new String(currentWordArray);
+    			if (isInDictionary(newWordTest)) {
+    				possibleWords[numPossibleWords] = newWordTest;
+    				numPossibleWords++;
+    			} // if
+    		} // for
+    		currentWordArray[i] = currentWord.charAt(i);
+    	} // for
+
+    	newWord = possibleWords[(int)((Math.random() * numPossibleWords) + 1)];
+    	
+    	return newWord;
+    } // goodComputerWord
     
     // display results from turn
     public static void displayTurn() {
