@@ -45,6 +45,7 @@ public class GameTemplate extends JPanel {
     static String currentWord = "";                 // tracks the currentWord
     static String goalWord = "";					//tracks the goalWord
     static int name = 0;
+    static int previousBestChar = 0; 
 
     static String playOutput = "";                 // output to panel (begin)
     static String playOutput1 = "";                 // output to panel (turns?)
@@ -122,6 +123,7 @@ public class GameTemplate extends JPanel {
             g.setFont(new Font("Monospaced", Font.PLAIN, 45));   // set font
             g.drawString("CHANGE ONE LETTER GAME",162,360);  // display
 
+ 
         // display menu
         } else if (gameStage == MENU) {
         	g.drawImage(bgImage2, 0, 0, this);
@@ -498,23 +500,6 @@ public class GameTemplate extends JPanel {
         
         return false;
     } // isInDictionary
-    
-    // getting the random word for the computer during game play
-    public static String getComputerWord() {
-    	
-    	int randomLine = (int)((Math.random() * 26) + 1);
-    	
-    	String wordLine = fileContents[randomLine];
-    	
-    	String [] wordsOfLine = wordLine.split(" ");
-    	
-    	int randomIndex = (int)((Math.random() * wordLine.length() / 5)); 
-    	
-    	String computerWord = wordsOfLine[randomIndex];
-    
-    	return computerWord;
-    } // getComputerWord	
-    
 
 	// getting a reasonable goal word for the computer player
 	public static String getComputerGoalWord() {
@@ -579,10 +564,10 @@ public class GameTemplate extends JPanel {
     		} // for
     		currentWordArray[i] = currentWord.charAt(i);
     	} // for
-
+    	
     	for (int i = 0; i < numPossibleWords; i++) {
     		System.out.println(possibleWords[i]);
-    	}
+    	} // for
     	
     	for (int i = 0; i < numPossibleWords; i++) {
     		possibleWordsArray = possibleWords[i].toCharArray();
@@ -603,14 +588,15 @@ public class GameTemplate extends JPanel {
     			} // for
     			similarWords[numSimilarWords] = new String(possibleWordsArray);
     			numSimilarWords++;
+    		} else if (bestChars < previousBestChar) {
+    			newWord = possibleWords[(int)(Math.random() * numPossibleWords)];
+    			return newWord;
     		} // if
+    		previousBestChar = bestChars;
     		similarChars = 0;
     	} // for 
     	
     	newWord = similarWords[(int)(Math.random() * numSimilarWords)];
-    	if (newWord == "") {
-        	newWord = possibleWords[(int)(Math.random() * numPossibleWords)];
-    	}
     	
     	return newWord;
     } // goodComputerWord
@@ -739,6 +725,7 @@ public class GameTemplate extends JPanel {
     public static String firstLetterCapital(String word) {
     	char name[];
     	
+    	word = word.toLowerCase();
     	name = word.toCharArray();
     	name[0] -= 32;
     	
@@ -829,3 +816,5 @@ public class GameTemplate extends JPanel {
     } // drawString
 
 } // Even and Odd
+
+
