@@ -593,10 +593,17 @@ public class GameTemplate extends JPanel {
     				System.out.println(similarChars);
     			} // if
     		} // for
-    		if (similarChars >= bestChars) {
-    			bestChars = similarChars;
+    		if (similarChars == bestChars) {
+    			similarWords[numSimilarWords] = new String(possibleWordsArray);
     			numSimilarWords++;
-    			similarWords[i] = new String(possibleWordsArray);
+    		} else if (similarChars > bestChars) {
+    			bestChars = similarChars;
+    			numSimilarWords = 0;
+    			for (int j = 0; j < similarWords.length; j++) {
+    				similarWords[i] = "";	
+    			} // for
+    			similarWords[numSimilarWords] = new String(possibleWordsArray);
+    			numSimilarWords++;
     		} // if
     		similarChars = 0;
     	} // for 
