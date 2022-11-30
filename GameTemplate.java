@@ -328,6 +328,7 @@ public class GameTemplate extends JPanel {
                 System.exit(0);
             } else if (e.getKeyChar() == 127) {
         		showMenu();
+        		dataEntered = "";
         	} else if (gameStage == MENU) {
 
             // respond to menu selection
@@ -613,9 +614,9 @@ public class GameTemplate extends JPanel {
     		for (int j = 0; j < 4; j++) {
     			if (possibleWordsArray[j] == goalWordArray[j]) {
     				similarChars++;
-    				System.out.println(similarChars);
     			} // if
     		} // for
+    		System.out.println(similarChars);
     		if (similarChars == bestChars) {
     			similarWords[numSimilarWords] = new String(possibleWordsArray);
     			numSimilarWords++;
@@ -629,12 +630,13 @@ public class GameTemplate extends JPanel {
     			numSimilarWords++;
     		} else if (bestChars < previousBestChar) {
     			newWord = possibleWords[(int)(Math.random() * numPossibleWords)];
+    			System.out.println(previousBestChar);
     			return newWord;
     		} // if
-    		previousBestChar = bestChars;
     		similarChars = 0;
     	} // for 
     	
+    	previousBestChar = bestChars;
     	newWord = similarWords[(int)(Math.random() * numSimilarWords)];
     	
     	return newWord;
@@ -818,6 +820,7 @@ public class GameTemplate extends JPanel {
         goalWord = "";
         turn = 1;
         dataEntered = "";
+        previousBestChar = 0;
         
         
         // text to display
