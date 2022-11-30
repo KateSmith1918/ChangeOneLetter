@@ -56,6 +56,10 @@ public class GameTemplate extends JPanel {
     static String playOutput6 = "";					// output to panel (goal word display)
     static String playOutputList = "";              // output all steps
     static String instructionsText = "";            // instructions
+    static String Text1 = "";            			// instructions
+    static String Text2 = "";            			// instructions
+    static String Text3 = "";            			// instructions
+    static String Text4 = "";            			// instructions
     static String playerOneName = "";				// name of player one
     static String playerTwoName = "";				// name of player two
 
@@ -69,7 +73,7 @@ public class GameTemplate extends JPanel {
        
         URL url = GameTemplate.class.getResource("title7.jpg");
         bgImage1 = tk.getImage(url);
-        url = GameTemplate.class.getResource("title4.jpg");
+        url = GameTemplate.class.getResource("title8.jpg");
         bgImage2 = tk.getImage(url);
         
         // Create Frame and Panel to display graphics in
@@ -113,61 +117,102 @@ public class GameTemplate extends JPanel {
             // welcome words on home screen
             g.setColor(new Color (0, 50, 100));
             g.setFont(new Font("Monospaced", Font.BOLD, 40));   // set font
-            g.drawString("Welcome to the ", 380, 305);
+            g.drawString("Welcome to the ", 380, 310);
             
             g.setColor(new Color (0, 60, 125));
             g.setFont(new Font("Monospaced", Font.BOLD, 27));   // set font
-            g.drawString("Press any key to continue.",330,470);
+            g.drawString("Press any key to continue",330,470);
 
             g.setColor(new Color (0, 50, 100));
             g.setFont(new Font("Monospaced", Font.PLAIN, 52));   // set font
-            g.drawString("CHANGE ONE LETTER GAME",204 ,375);  // display
+            g.drawString("CHANGE ONE LETTER GAME",204 ,385);  // display
 
  
         // display menu
         } else if (gameStage == MENU) {
-        	g.drawImage(bgImage2, 0, 0, this);
+        	g.drawImage(bgImage1, 0, 0, this);
             
-        	g.setColor(new Color (50, 150, 175, 110));
-        	g.fillRoundRect (205, 65, 500, 70, 70, 70);
+        	g.setColor(new Color (150, 160, 180, 130));
+        	g.fillRoundRect (25, 25, 1050, 700, 60, 60);
+        	//g.fillRoundRect (205, 65, 500, 70, 70, 70);
             
-            g.setColor(new Color(0,100,150));
-            g.setFont(new Font("Monospaced", Font.PLAIN, 48));   // set font
-            drawString(g, "Change One Letter", 210,50);    // display title
+            g.setColor(new Color (60, 70, 110));
+            g.setFont(new Font("Monospaced", Font.BOLD, 60));   // set font
+            drawString(g, "Change One Letter", 250,70);    // display title
+            	
+            g.setFont(new Font("Monospaced", Font.PLAIN, 30));   // set font
+            instructionsText = "Please make one of the following choices\nby pressing the indicated number keys";
+            drawString(g, instructionsText, 170, 200);  // display
             
-            
-            g.setFont(new Font("SansSerif", Font.BOLD, 16));   // set font
-            instructionsText = "Please make one of the following choices:\n\n1) Display Instructions.\n\n2) One Player Game\n\n3) Two Player Game\n\n4) Exit";
-            drawString(g, instructionsText,230,280);  // display
+            g.setFont(new Font("Monospaced", Font.BOLD, 28));   // set font
+            g.setColor(new Color (100, 60, 90, 100));
+        	g.fillRoundRect (170, 330, 350, 100, 50, 50);
+        	
+        	g.setColor(new Color (40, 20, 75));
+        	Text1 = "1) Instructions";
+            drawString(g, Text1, 185, 350);  // display
+        	
+        	g.setColor(new Color (100, 60, 90, 100));
+        	g.fillRoundRect (550, 330, 350, 100, 50, 50);
+        	
+        	g.setColor(new Color (40, 20, 75));
+        	Text2 = "2) One Player Game";
+            drawString(g, Text2, 560, 350);  // display
+        	
+        	g.setColor(new Color (100, 60, 90, 100));
+        	g.fillRoundRect (170, 460, 350, 100, 50, 50);
+        	
+        	g.setColor(new Color (40, 20, 75));
+        	Text3 = "3) Two Player Game";
+            drawString(g, Text3, 180, 480);  // display
+        	
+        	g.setColor(new Color (100, 60, 90, 100));
+        	g.fillRoundRect (550, 460, 350, 100, 50, 50);
+        	
+        	g.setColor(new Color (40, 20, 75));
+        	Text4 = "4) Exit Game";
+            drawString(g, Text4, 560, 480);  // display
            
         // display instructions
         } else if (gameStage == INSTRUCTIONS) {
-        	// sets color using RGB values
-            g.setColor(new Color(100,225,255));
-         
-            // draw background
-            g.fillRect (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+        	g.drawImage(bgImage1, 0, 0, this);
+        	
+        	g.setColor(new Color (120, 130, 150, 180));
+        	g.fillRoundRect (0, 0, 1100, 750, 10, 10);
+        	
+	        g.setColor(new Color (100, 60, 90, 100));
+	    	g.fillRoundRect (330, 40, 460, 80, 40, 40);
+	        
+	        g.setColor(new Color(40, 50, 80));
+	        g.setFont(new Font("Monospaced", Font.BOLD, 50));   // set font
+	        drawString(g, "INSTRUCTIONS", 375, 30);    // display title
+	        
+	        g.setColor(new Color (100, 60, 90, 100));
+	    	g.fillRoundRect (80, 155, 925, 550, 40, 40);
+	        
+	    	g.setColor(new Color(20, 40, 75));
+	    	g.setFont(new Font("Monospaced", Font.BOLD, 27));   // set font
+	    	instructionsText = "Objective:";
+	        drawString(g, instructionsText, 100, 155);  // display instructions
 
-            g.setColor(new Color (50, 150, 175, 110));
-        	g.fillRoundRect (255, 65, 400, 70, 70, 70);
-            
-            g.setColor(new Color(0,100,150));
-            g.setFont(new Font("Monospaced", Font.PLAIN, 48));   // set font
-            drawString(g, "INSTRUCTIONS", 275,50);    // display title
-            g.setFont(new Font("Dialog", Font.PLAIN, 18));   // set font
-            
-            g.setColor(new Color (50, 150, 175, 110));
-        	g.fillRoundRect (80, 150, 730, 500, 60, 60);
-            
-        	g.setColor(new Color(0,100,150));
-        	g.setFont(new Font("Dialog", Font.PLAIN, 22));   // set font
-        	instructionsText = "Objective: In order to win, you must be the first player to change the\n start word to the goal word.\n\n"
-        			+ "Set Up: To start the game the players will enter the four letter start and\n goal words. \n\n"
-        			+ "Game Play: On their turn, players will type in a new word with ONE\n letter that is different than the previous"
-        			+ " word. This process will continue \nuntil the goal word is reached.\n\n";
-            drawString(g, instructionsText, 95, 175);  // display instructions
-
-        
+	    	Text1 = "Set Up:";
+	        drawString(g, Text1, 100, 280);  // display instructions
+	        
+	        Text2 = "Game Play:";
+	        drawString(g, Text2, 100, 430);  // display instructions
+	        
+	        Text3 = "Additional Info:";
+	        drawString(g, Text3, 100, 620);  // display instructions
+	        
+	        g.setFont(new Font("Monospaced", Font.PLAIN, 23));   // set font
+	    	instructionsText = "The goal of the game is to be the first player to change\nthe start word to the goal word, "
+	    			+ "which may take several turns.\n\n\nTo start the game, the first player will enter a four letter\nstart"
+	    			+ "word and the other player, or the computer for the\nsingle player version, will enter the goal word.\n\n\n"
+	    			+ "On their turn, players will type in a new word with ONE letter\nthat is different than the previous word."
+	    			+ " This will continue\nuntil the goal word is reached.\nExample: mall --> mail --> bail --> boil\n\n\nPress "
+	    			+ "'delete' OR ctrl Backspace at anytime to return to the menu.";
+	        drawString(g, instructionsText, 100, 190);  // display instructions
+	        
         } else if (gameStage == PLAY1){
         	
         	g.setColor(new Color(24,160,202));
