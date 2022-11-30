@@ -205,11 +205,16 @@ public class GameTemplate extends JPanel {
 	        g.setFont(new Font("Monospaced", Font.PLAIN, 23));   // set font
 	    	instructionsText = "The goal of the game is to be the first player to change\nthe start word to the goal word, "
 	    			+ "which may take several turns.\n\n\nTo start the game, the first player will enter a four letter\nstart"
-	    			+ "word and the other player, or the computer for the\nsingle player version, will enter the goal word.\n\n\n"
+	    			+ " word and the other player, or the computer for the\nsingle player version, will enter the goal word.\n\n\n"
 	    			+ "On their turn, players will type in a new word with ONE letter\nthat is different than the previous word."
 	    			+ " This will continue\nuntil the goal word is reached.\nExample: mall --> mail --> bail --> boil\n\n\nPress "
-	    			+ "'delete' OR ctrl Backspace at anytime to return to the menu.";
+	    			+ "ctrl Backspace during game play to return to the menu.";
 	        drawString(g, instructionsText, 100, 190);  // display instructions
+	        
+	        g.setColor(new Color(60, 30, 70));
+	        g.setFont(new Font("Monospaced", Font.BOLD, 22));
+	        Text4 = "Press any key to return to the menu";
+	        drawString(g, Text4, 300, 705);
 	        
         } else if (gameStage == PLAY1){
         	
@@ -234,7 +239,7 @@ public class GameTemplate extends JPanel {
             
             g.setColor(new Color(60, 30, 70));
             g.setFont(new Font("Monospaced", Font.BOLD, 38));
-            drawString(g, playOutput2, 115, 370 );
+            drawString(g, playOutput2, 115, 375 );
             
             
         } else if (gameStage == PLAY2) {
@@ -268,10 +273,10 @@ public class GameTemplate extends JPanel {
             drawString(g, playOutput2, 75, 330); 
             
             g.setColor(new Color (80, 70, 120, 120));
-        	g.fillRoundRect (50, 500, 400, 60, 20, 20);
+        	g.fillRoundRect (50, 520, 400, 60, 20, 20);
             g.setColor(new Color (60, 50, 100));
             g.setFont(new Font("Monospaced", Font.BOLD, 21));
-            drawString(g, playOutput7, 75, 505);
+            drawString(g, playOutput7, 75, 525);
             
             g.setColor(new Color (80, 70, 120, 120));
         	g.fillRoundRect (50, 595, 400, 60, 20, 20);  
@@ -286,7 +291,7 @@ public class GameTemplate extends JPanel {
             g.setColor(new Color (60, 30, 70, 80));
 			g.fillRoundRect (550, 140, 500, 510, 30, 30);
 			
-			g.setColor(new Color (60, 30, 70));
+			g.setColor(new Color (60, 30, 70, 120));
 			g.fillRoundRect (717, 150, 3, 490, 10, 10);
 			g.fillRoundRect (885, 150, 3, 490, 10, 10);
 			
@@ -294,7 +299,11 @@ public class GameTemplate extends JPanel {
 	        g.setFont(new Font("Monospaced", Font.BOLD, 32));
 	        Text1 = "Game Play";
 	        drawString(g, Text1, 715, 80);
-			
+	        
+	        g.setColor(new Color(60, 30, 70));
+	        g.setFont(new Font("Monospaced", Font.BOLD, 20));
+	        Text2 = "Press ctrl Backspace or 'delete' at any time to return to the menu";
+	        drawString(g, Text2, 50, 700);
             
             String [] words = playOutputList.split("\n");
             
@@ -323,9 +332,7 @@ public class GameTemplate extends JPanel {
             		playOutputList3 += words [i] + "\n"; 
             		drawString(g, playOutputList3, 925, 150);
             	} // if
-            	
-            } // for 
-
+            } // for
          } // if game stage is Play2 
 		 
         // display end of game
@@ -335,14 +342,24 @@ public class GameTemplate extends JPanel {
         	g.setColor(new Color (120, 130, 150, 200));
         	g.fillRoundRect (0, 0, 1100, 750, 10, 10);
            
-        	g.setColor(Color.pink);
-            g.setFont(new Font("SansSerif", Font.BOLD, 16));
+        	g.setColor(new Color (60, 30, 70, 60));
+        	g.fillRoundRect (25, 25, 1050, 700, 60, 60);
+        	
+        	g.setColor(new Color (60, 30, 70));
+        	g.setFont(new Font("Monospaced", Font.BOLD, 28));
+            drawString(g, playOutput, 60,80);  
             
-            // display contents of playOutput strings
-            drawString(g, playOutput, 20,50);  
-            drawString(g, playOutput1, 20, 100); 
-            drawString(g, playOutput2, 20, 150); 			 
-			drawString(g, playOutput4, 20, 250); 
+            g.setColor(new Color (80, 70, 120, 120));
+        	g.fillRoundRect (60, 200, 690, 200, 30, 30);
+            g.setColor(new Color (40, 30, 70));
+            g.setFont(new Font("Monospaced", Font.BOLD, 35));
+            drawString(g, playOutput1, 70, 220); 
+            g.setColor(new Color (60, 50, 100));
+            drawString(g, playOutput2, 70, 300); 			 
+           
+            g.setColor(new Color (40, 40, 90));
+        	g.setFont(new Font("Monospaced", Font.BOLD, 25));
+            drawString(g, playOutput4, 60, 500);
 		 
         } // else
     } // paintComponent
@@ -816,10 +833,15 @@ public class GameTemplate extends JPanel {
 	// end game.
     private static void endGame() {
 
-         playOutput = "This game is over.";
-		 playOutput1 = getOtherPlayer() + " won";
-		 playOutput2 = "In " + (turn - 3) + " turns.";
-		 playOutput4 = "Press any key to return to menu";
+         playOutput = "Thank you for playing the Change One Letter game.\nThis game is over: ";
+		 playOutput1 = "Congratulations " + getOtherPlayer() + ", you won!";
+		 // to change output for grammatical purposes
+		 if(turn != 4) {
+			 playOutput2 = "It took " + (turn - 3) + " turns to win.";
+		 } else {
+			 playOutput2 = "It took " + (turn - 3) + " turn to win.";
+		 } // if
+		 playOutput4 = "Please press any key to return to menu or press the 'esc' \nkey to end the game...";
          gameStage = END_GAME;
          panel.repaint();
     } // endGame
