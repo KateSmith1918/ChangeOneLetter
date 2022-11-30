@@ -24,7 +24,6 @@ public class GameTemplate extends JPanel {
 	static String[] fileGoalContents = getFileContents("userFriendlyGoalWords.txt"); // contents of the goal words dictionary file
 	
     static Image bgImage1; 
-    static Image bgImage2; 
     static JPanel panel;                 // main drawing panel
     static JFrame frame;                 // window frame which contains the panel
     static final int WINDOW_WIDTH = 1100; // width of display window
@@ -73,8 +72,6 @@ public class GameTemplate extends JPanel {
        
         URL url = GameTemplate.class.getResource("title7.jpg");
         bgImage1 = tk.getImage(url);
-        url = GameTemplate.class.getResource("title8.jpg");
-        bgImage2 = tk.getImage(url);
         
         // Create Frame and Panel to display graphics in
   
@@ -215,11 +212,11 @@ public class GameTemplate extends JPanel {
 	        
         } else if (gameStage == PLAY1){
         	
-        	g.setColor(new Color(24,160,202));
-
-            g.fillRect (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+        	g.drawImage(bgImage1, 0, 0, this);
+        	
+        	g.setColor(new Color (120, 130, 150, 180));
+        	g.fillRoundRect (0, 0, 1100, 750, 10, 10);
             
-         // set font and colour
             g.setColor(Color.white);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
            
@@ -238,12 +235,11 @@ public class GameTemplate extends JPanel {
             
         } else if (gameStage == PLAY2) {
             
-            g.setColor(new Color(24,160,202));
+        	g.drawImage(bgImage1, 0, 0, this);
+        	
+        	g.setColor(new Color (120, 130, 150, 180));
+        	g.fillRoundRect (0, 0, 1100, 750, 10, 10);
 
-            g.fillRect (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-
-            // set font and colour
             g.setColor(Color.white);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
             
@@ -309,8 +305,6 @@ public class GameTemplate extends JPanel {
         else {
         	g.drawImage(bgImage1, 0, 0, this);
         	// set font and colour
-			 g.drawImage(bgImage1, 0, 0, this);
-              // set font and colour
             g.setColor(Color.pink);
             g.setFont(new Font("SansSerif", Font.BOLD, 16));
             
