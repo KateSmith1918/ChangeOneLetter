@@ -252,7 +252,7 @@ public class GameTemplate extends JPanel {
             // display contents of playOutput strings
             
         	g.setColor(new Color(45, 50, 90));
-            g.setFont(new Font("Monospaced", Font.BOLD, 30));
+            g.setFont(new Font("Monospaced", Font.BOLD, 28));
             drawString(g, playOutput, 50, 45);
             
             g.setFont(new Font("Monospaced", Font.BOLD, 23));
@@ -305,7 +305,7 @@ public class GameTemplate extends JPanel {
 	        Text2 = "Press ctrl Backspace or 'delete' at any time to return to the menu";
 	        drawString(g, Text2, 50, 700);
             
-            String [] words = playOutputList.split("\n");
+            String [] words = playOutputList.split("\n"); 
             
             String playOutputList1 = "";
             String playOutputList2 = "";
@@ -315,7 +315,6 @@ public class GameTemplate extends JPanel {
             // display all turns in a box on right side
             g.setColor(new Color (60, 30, 70));
             g.setFont(new Font("Monospaced", Font.BOLD, 27));
-            
             
             for (int i = 0; i < words.length; i++) {
             	if (i < 12) {
@@ -332,6 +331,24 @@ public class GameTemplate extends JPanel {
             		playOutputList3 += words [i] + "\n"; 
             		drawString(g, playOutputList3, 925, 150);
             	} // if
+            	
+            	if (i == 36) {
+            		System.out.println("loop2");
+            		for (int j = 0; j < words.length; j++) {
+	            		words[j] = "";
+	            		if (j == 36) {
+	            			break;
+	            		} // if
+	            		System.out.println("loop1");
+            		} // for
+            		 playOutputList1 = "";
+            		 playOutputList2 = "";
+            		 playOutputList3 = "";
+            		 words[0] = currentWord;
+            		 i = 0;
+            		 panel.repaint();
+            	} // if
+            	
             } // for
          } // if game stage is Play2 
 		 
@@ -502,7 +519,16 @@ public class GameTemplate extends JPanel {
         		panel.repaint();
         		return false;
         	} // if
-       
+        } // if
+        
+        // makes sure that the goal word is not the same as the current word
+        if (turn == 2) {
+        	if (word.equals(currentWord)) {
+        		playOutput5 = "The goal word can not be the \nsame as the start word. \nPlease try again.";
+        		playOutput2 = "";
+        		panel.repaint();
+        		return false;
+        	}
         } // if
     	return true;
     } // isValidWord
@@ -820,9 +846,10 @@ public class GameTemplate extends JPanel {
     public static String firstLetterCapital(String word) {
     	char name[];
     	
-    	word = word.toLowerCase();
     	name = word.toCharArray();
-    	name[0] -= 32;
+    	if (name[0] > 96 && name[0] < 123) {
+    		name[0] -= 32;
+    	} // if
     	
     	word = new String(name);
     	
@@ -841,7 +868,7 @@ public class GameTemplate extends JPanel {
 		 } else {
 			 playOutput2 = "It took " + (turn - 3) + " turn to win.";
 		 } // if
-		 playOutput4 = "Please press any key to return to menu or press the 'esc' \nkey to end the game...";
+		 playOutput4 = "Please press any key to return to menu or press the 'esc' key \nto end the game...";
          gameStage = END_GAME;
          panel.repaint();
     } // endGame
@@ -923,5 +950,3 @@ public class GameTemplate extends JPanel {
     } // drawString
 
 } // Even and Odd
-
-
