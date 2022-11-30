@@ -27,8 +27,8 @@ public class GameTemplate extends JPanel {
     static Image bgImage2; 
     static JPanel panel;                 // main drawing panel
     static JFrame frame;                 // window frame which contains the panel
-    static final int WINDOW_WIDTH = 900; // width of display window
-    static final int WINDOW_HEIGHT = 700;// height of display window
+    static final int WINDOW_WIDTH = 1100; // width of display window
+    static final int WINDOW_HEIGHT = 750;// height of display window
 
     static int gameStage = 0;            // stages of game
     static final int WELCOME_SCREEN = 0;
@@ -107,21 +107,21 @@ public class GameTemplate extends JPanel {
         if (gameStage == WELCOME_SCREEN) {
         	g.drawImage(bgImage1, 0, 0, this);
         	
-        	g.setColor(new Color (100, 150, 175, 150));
-        	g.fillRoundRect (150, 230, 620, 225, 60, 60);
+        	g.setColor(new Color (150, 160, 180, 100));
+        	g.fillRoundRect (185, 240, 720, 275, 60, 60);
         	
             // welcome words on home screen
             g.setColor(new Color (0, 50, 100));
-            g.setFont(new Font("Monospaced", Font.BOLD, 30));   // set font
-            g.drawString("Welcome to the ", 330, 295);
+            g.setFont(new Font("Monospaced", Font.BOLD, 40));   // set font
+            g.drawString("Welcome to the ", 380, 305);
             
             g.setColor(new Color (0, 60, 125));
-            g.setFont(new Font("Monospaced", Font.BOLD, 20));   // set font
-            g.drawString("Press any key to continue.",295,430);
+            g.setFont(new Font("Monospaced", Font.BOLD, 27));   // set font
+            g.drawString("Press any key to continue.",330,470);
 
             g.setColor(new Color (0, 50, 100));
-            g.setFont(new Font("Monospaced", Font.PLAIN, 45));   // set font
-            g.drawString("CHANGE ONE LETTER GAME",162,360);  // display
+            g.setFont(new Font("Monospaced", Font.PLAIN, 52));   // set font
+            g.drawString("CHANGE ONE LETTER GAME",204 ,375);  // display
 
  
         // display menu
