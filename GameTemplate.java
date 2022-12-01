@@ -1,7 +1,7 @@
 /***************************************************************************************
-* Name:        Change One letter Game
+* Name:        Change One letter Game: Graphical Version
 * Author:      Kate S and Daniel K
-* Date:        November 30, 2022
+* Date:        December 2, 2022
 * Purpose:     An interactive and graphical version of the Change One Letter Game with both
 *			   single and double player options. 
 * Computer:    The computer player chooses a goal word from a bank of basic and common words. 
@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-
 public class GameTemplate extends JPanel {
 	
 	static String[] fileContents = getFileContents("dictionary.txt"); // contents of the dictionary file
@@ -33,7 +32,7 @@ public class GameTemplate extends JPanel {
     static final int WINDOW_WIDTH = 1100; // width of display window
     static final int WINDOW_HEIGHT = 750;// height of display window
 
-    static int gameStage = 0;            // stages of game
+    static int gameStage = 0;            
     static final int WELCOME_SCREEN = 0;
     static final int MENU = 1;
     static final int INSTRUCTIONS = 2;
@@ -42,16 +41,16 @@ public class GameTemplate extends JPanel {
     static final int END_GAME = 5;
     static final int HINTS = 6;
 
-    static int numPlayers = 0;                     // number of players
-    static int turn = 1;                           // current turn of game (starts at turn 1)
+    static int numPlayers = 0;                      // number of players
+    static int turn = 1;                            // current turn of game (starts at turn 1)
     static String dataEntered = "";                 // input from user
-    static String currentPlayer = "";              // tracks the current player
+    static String currentPlayer = "";               // tracks the current player
     static String currentWord = "";                 // tracks the currentWord
     static String goalWord = "";					//tracks the goalWord
     static int name = 0;
     static int previousBestChar = 0; 
 
-    static String playOutput = "";                 // output to panel (begin)
+    static String playOutput = "";                  // output to panel (begin)
     static String playOutput1 = "";                 // output to panel (turns?)
     static String playOutput2 = "";                 // output to panel (type something, box)
     static String playOutput3 = "";                 // output to panel 
@@ -69,20 +68,17 @@ public class GameTemplate extends JPanel {
     static String playerOneName = "";				// name of player one
     static String playerTwoName = "";				// name of player two
 
-    // start main program
-	// * initializes the window for the game
+    // start main program and initializes the game screen
     public static void main (String args[]) {
         // Create Image Object
         Toolkit tk = Toolkit.getDefaultToolkit();
 
         // Load background images
-       
         URL url = GameTemplate.class.getResource("title7.jpg");
         bgImage1 = tk.getImage(url);
         
         // Create Frame and Panel to display graphics in
-  
-        panel = new GameTemplate(); /*****MUST CALL THIS CLASS (ie same as filename) ****/
+        panel = new GameTemplate(); /*****MUST CALL THIS CLASS (same as filename) ****/
   
         panel.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));  // set size of application window
         frame = new JFrame ("Change One Letter Game");  // set title of window
@@ -101,13 +97,7 @@ public class GameTemplate extends JPanel {
   
     } // main
 
-   /*
-   * paintComponent gets called whenever panel.repaint() is
-   * called or when frame.pack()/frame.show() is called. It paints
-   * to the screen.  Since we want to paint different things
-   * depending on what stage of the game we are in, a variable
-   * "gameStage" will keep track of this.
-   */
+    // repaints and creates the graphics on the game panel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);   // calls the paintComponent method of JPanel to display the background
 
@@ -118,7 +108,6 @@ public class GameTemplate extends JPanel {
         	g.setColor(new Color (150, 160, 180, 100));
         	g.fillRoundRect (185, 240, 720, 275, 60, 60);
         	
-            // welcome words on home screen
             g.setColor(new Color (0, 50, 100));
             g.setFont(new Font("Monospaced", Font.BOLD, 40));   // set font
             g.drawString("Welcome to the ", 380, 310);
@@ -131,14 +120,12 @@ public class GameTemplate extends JPanel {
             g.setFont(new Font("Monospaced", Font.PLAIN, 52));   // set font
             g.drawString("CHANGE ONE LETTER GAME",204 ,385);  // display
 
- 
         // display menu
         } else if (gameStage == MENU) {
         	g.drawImage(bgImage1, 0, 0, this);
             
         	g.setColor(new Color (150, 160, 180, 130));
         	g.fillRoundRect (25, 25, 1050, 700, 60, 60);
-        	//g.fillRoundRect (205, 65, 500, 70, 70, 70);
             
             g.setColor(new Color (60, 70, 110));
             g.setFont(new Font("Monospaced", Font.BOLD, 60));   // set font
@@ -188,40 +175,41 @@ public class GameTemplate extends JPanel {
 	    	g.fillRoundRect (330, 20, 460, 80, 40, 40);
 	        
 	        g.setColor(new Color(40, 50, 80));
-	        g.setFont(new Font("Monospaced", Font.BOLD, 50));   // set font
-	        drawString(g, "INSTRUCTIONS", 375, 10);    // display title
+	        g.setFont(new Font("Monospaced", Font.BOLD, 50));   
+	        drawString(g, "INSTRUCTIONS", 375, 10);   
 	        
 	        g.setColor(new Color (100, 60, 90, 100));
 	    	g.fillRoundRect (80, 130, 925, 575, 40, 40);
 	        
 	    	g.setColor(new Color(20, 40, 75));
-	    	g.setFont(new Font("Monospaced", Font.BOLD, 27));   // set font
+	    	g.setFont(new Font("Monospaced", Font.BOLD, 27));   
 	    	instructionsText = "Objective:";
-	        drawString(g, instructionsText, 100, 130);  // display instructions
+	        drawString(g, instructionsText, 100, 130);  
 
 	    	Text1 = "Set Up:";
-	        drawString(g, Text1, 100, 255);  // display instructions
+	        drawString(g, Text1, 100, 255);  
 	        
 	        Text2 = "Game Play:";
-	        drawString(g, Text2, 100, 405);  // display instructions
+	        drawString(g, Text2, 100, 405);  
 	        
 	        Text3 = "Additional Info:";
-	        drawString(g, Text3, 100, 595);  // display instructions
+	        drawString(g, Text3, 100, 595); 
 	        
-	        g.setFont(new Font("Monospaced", Font.PLAIN, 23));   // set font
+	        g.setFont(new Font("Monospaced", Font.PLAIN, 23));  
 	    	instructionsText = "The goal of the game is to be the first player to change\nthe start word to the goal word, "
 	    			+ "which may take several turns.\n\n\nTo start the game, the first player will enter a four letter\nstart"
 	    			+ " word and the other player, or the computer for the\nsingle player version, will enter the goal word.\n\n\n"
 	    			+ "On their turn, players will type in a new word with ONE letter\nthat is different than the previous word."
 	    			+ " This will continue\nuntil the goal word is reached.\nExample: mall --> mail --> bail --> boil\n\n\nPress "
 	    			+ "ctrl Backspace during game play to return to the menu.\nPress the 'F1' key during game play to give you a HINT!";
-	        drawString(g, instructionsText, 100, 165);  // display instructions
+	        drawString(g, instructionsText, 100, 165);  
 	        
 	        g.setColor(new Color(60, 30, 70));
 	        g.setFont(new Font("Monospaced", Font.BOLD, 22));
 	        Text4 = "Press any key to return to the menu";
 	        drawString(g, Text4, 300, 705);
-	        
+	      
+	    // display initial game screen 
         } else if (gameStage == PLAY1){
         	
         	g.drawImage(bgImage1, 0, 0, this);
@@ -246,16 +234,14 @@ public class GameTemplate extends JPanel {
             g.setColor(new Color(60, 30, 70));
             g.setFont(new Font("Monospaced", Font.BOLD, 38));
             drawString(g, playOutput2, 115, 375 );
-            
-            
+        
+        // display main game screen
         } else if (gameStage == PLAY2) {
             
         	g.drawImage(bgImage1, 0, 0, this);
         	
         	g.setColor(new Color (120, 130, 150, 170));
         	g.fillRoundRect (0, 0, 1100, 750, 10, 10);
-            
-            // display contents of playOutput strings
             
         	g.setColor(new Color(45, 50, 90));
             g.setFont(new Font("Monospaced", Font.BOLD, 28));
@@ -323,17 +309,17 @@ public class GameTemplate extends JPanel {
 	        Text4 = "press F1 to turn on/off";
 	        drawString(g, Text4, 155, 633);
             
-            String [] words = playOutputList.split("\n"); 
+	        g.setColor(new Color (60, 30, 70));
+            g.setFont(new Font("Monospaced", Font.BOLD, 27));
+            
+	        String [] words = playOutputList.split("\n"); 
             
             String playOutputList1 = "";
             String playOutputList2 = "";
             String playOutputList3 = "";
             int clearCounter = 0;
             
-            // display all turns in a box on right side
-            g.setColor(new Color (60, 30, 70));
-            g.setFont(new Font("Monospaced", Font.BOLD, 27));
-            
+            // assigns the list of words to an output column
             for (int i = 0; i < words.length; i++) {
             	if (i < (12 + clearCounter)) {
             		playOutputList1 += words [i] + "\n";
@@ -355,7 +341,7 @@ public class GameTemplate extends JPanel {
 	            		words[j] = "";
 	            		if (j == 36) {
 	            			break;
-	            		} // if
+	            		} // if inner
             		} // for
             		 playOutputList = currentWord + "\n";
             		 clearCounter += 36;
@@ -391,20 +377,16 @@ public class GameTemplate extends JPanel {
         	g.setFont(new Font("Monospaced", Font.BOLD, 25));
             drawString(g, playOutput4, 60, 450);
 		 
-        } // if game stage is End Game
-        
-        else {
-        	
-        } // else
+        } // display based on game stage
     } // paintComponent
 
-    /* A class to handle keyboard input from the user.
-    * Implemented as a inner class because it is not
-    * needed outside the EvenAndOdd class.
-    */
+    // a class to handle keyboard input from the user
     private static class KeyInputHandler extends KeyAdapter {
-        public void keyTyped(KeyEvent e) {
-            // quit if the user presses "escape"
+    	
+    	// responds to keyboard events
+    	public void keyTyped(KeyEvent e) {
+            
+        	// quit if the user presses "escape"
             if (e.getKeyChar() == 27) {
                 System.exit(0);
             } else if (e.getKeyChar() == 127) {
@@ -412,7 +394,7 @@ public class GameTemplate extends JPanel {
         		dataEntered = "";
         	} else if (gameStage == MENU) {
 
-            // respond to menu selection
+            // menu selection for users to respond to
                 switch (e.getKeyChar()) {
                     case 49:  showInstructions(); break;        	    // Key "1" pressed
                     case 50:  numPlayers = 1; setUpGame(); break;  		// Key "2" pressed
@@ -427,10 +409,8 @@ public class GameTemplate extends JPanel {
             	} else {
                     recordKey(e.getKeyChar());
                   } // else
-            	
-            } // if game stage = play1
+            } // if game stage is Play1
         
-			
             // respond to keys typed during game play
 			else if (gameStage == PLAY2) {
 
@@ -455,40 +435,35 @@ public class GameTemplate extends JPanel {
                   if (turn > 2) {
                 	  if (e.getKeyChar() == Event.F1) {
                 		  gameStage = HINTS;
-                	  }
-                  }
-			} // if
-			// if all else fails, show menu
-			else {
+                	  } // if
+                  } // if
+			} else {
                 showMenu();
             } // else
         } // keyTyped
     } // KeyInputHandler class
 
-	// add key typed to dataEntered
+	// adds the keys that are typed to dataEntered
     private static void recordKey(char key) {
 
-        // backspace pressed -> removes characters
+        // backspace pressed will removes characters
          if (key == 8 && dataEntered.length() > 0) {
-              dataEntered = dataEntered.substring(0,dataEntered.length()-1);
-         } // if
-         
-         // otherwise add key typed to dataEntered
-         else {
+              dataEntered = dataEntered.substring(0, dataEntered.length() - 1);
+         } else {
               dataEntered += (key + "");
          } // else
          playOutput2 = dataEntered;
          panel.repaint();
     } // recordKey
 
-    // returns name of currentPlayer
+    // returns the name of current player
     private static String getCurrentPlayer(){ //change this to asking for a name
         if (numPlayers == 2) {
             return (turn % 2 != 0) ? playerOneName :  playerTwoName; 
         } else {
             return (turn % 2 != 0) ?  playerOneName : playerTwoName;
         } // else
-    
+        
     } // getCurrentPlayer
     
     // returns name of other player
@@ -497,19 +472,18 @@ public class GameTemplate extends JPanel {
             return (turn % 2 == 0) ?  playerOneName :  playerTwoName;
         } else {
             return (turn % 2 == 0) ? playerOneName : playerTwoName;
-        } // else
-    
+        } // else 
     } // getCurrentPlayer
     
     // returns true if it is the computer's turn
     public static boolean isComputerTurn(){
-      return (numPlayers == 1 && turn%2 == 0);
+      return (numPlayers == 1 && turn % 2 == 0);
     } // isComputerTurn
     
-    // makes sure that the word entered is valid
+    // makes sure that the word entered by the user is valid
     public static boolean isValidWord(String word) {
     	
-    	// makes sure that the word is 4 letters long
+    	// makes sure that the word is four letters long
     	if (word.length() != 4) {
     		playOutput5 = "That input is not 4 characters long. \nPlease try again.";
     		playOutput2 = "";
@@ -525,7 +499,7 @@ public class GameTemplate extends JPanel {
             return false;
         } // if
         
-    	// makes sure that the input is only one word
+    	// makes sure that the input is only one word rather than two shorter words
     	if (word.contains(" ")) {
     		playOutput5 = "The input must be only one word \n(can't contain spaces). \nPlease try again.";
     		playOutput2 = "";
@@ -533,7 +507,7 @@ public class GameTemplate extends JPanel {
         	return false;
         } // if
         
-        // makes sure that the new word is no greater than 1 character different from the current word
+        // makes sure that the new word is no greater than one character different from the current word
         if (turn > 2) {
         	if (!isChangeValid(currentWord, word)) {
         		playOutput5 = "The new word must be one charatcer \ndifferent from the current word. \nPlease try again.";
@@ -552,7 +526,8 @@ public class GameTemplate extends JPanel {
         		return false;
         	} // if
         } // if
-    	return true;
+    	
+        return true;
     } // isValidWord
     
     // makes sure that the new word is no greater than 1 character different from the current word
@@ -577,33 +552,29 @@ public class GameTemplate extends JPanel {
     	return true;
     } // isChangeValid
     
-    // gets the contents of the dictionary file
+    // gets the contents of the dictionary and goal words file
     public static String[] getFileContents(String fileName) {
-        String[] contents = null; // the contents of the file 
-        int length = 0; // length of file 
+        String[] contents = null;  
+        int length = 0; 
         
         try {
-            // input
-            String folderName = "/subFolder/"; // if the file is contained in the same folder as the .class file, make this equal to the empty string
+            String folderName = "/subFolder/"; 
             String resource = fileName;
 
-            // this is the path within the jar file
             InputStream input = GameTemplate.class.getResourceAsStream(folderName + resource);
             if (input == null) {
-                // this is how we load file within editor (eg eclipse)
                 input = GameTemplate.class.getClassLoader().getResourceAsStream(resource);
             } // if
             BufferedReader in = new BufferedReader(new InputStreamReader(input));
 
-            in.mark(Short.MAX_VALUE); // see API
+            in.mark(Short.MAX_VALUE);
 
-            // count number of lines in file
             while ( in .readLine() != null) {
                 length++;
             } // while
 
-            in.reset(); // rewind the reader to the start of file
-            contents = new String[length]; // give size to contents array
+            in.reset(); 
+            contents = new String[length]; 
 
             // read in contents of file and print to screen
             for (int i = 0; i < length; i++) {
@@ -619,9 +590,9 @@ public class GameTemplate extends JPanel {
     
     // makes sure the word entered by the user is in the English dictionary
     public static boolean isInDictionary(String word) {
-        int dictionaryLine = word.charAt(0) - 97; // the only line that the word may be found
+        int dictionaryLine = word.charAt(0) - 97; 
 
-        // checks to see if the line of the words first letter contains the word inside the dictionary
+        // checks to see if the line of the word's first letter contains the word inside the dictionary
         try {
 	        if (fileContents[dictionaryLine].contains(word)) {
 	            return true;
@@ -633,7 +604,7 @@ public class GameTemplate extends JPanel {
         return false;
     } // isInDictionary
 
-	// getting a reasonable goal word for the computer player
+	// randomly generates a reasonable goal word for the computer player
 	public static String getComputerGoalWord() {
 	
 		int randomLine = (int)((Math.random() * 26) + 1);
@@ -663,9 +634,8 @@ public class GameTemplate extends JPanel {
 	    		} while (dataEntered.equals(currentWord));
 	    	} while (!isValidWord(dataEntered));
 	    	displayTurn();
-    	} catch (Exception e){
-    		
-    	}
+    	} catch (Exception e){	
+    	} // catch
        
     } // computerTakeTurn
     
@@ -951,7 +921,6 @@ public class GameTemplate extends JPanel {
         turn = 1;
         dataEntered = "";
         previousBestChar = 0;
-        
         
         // text to display
         playOutput = "Let's Play! ";
