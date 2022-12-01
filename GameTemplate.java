@@ -16,9 +16,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 
 public class GameTemplate extends JPanel {
@@ -297,18 +295,20 @@ public class GameTemplate extends JPanel {
 	        Text2 = "Press ctrl Backspace or 'delete' at any time to return to the menu";
 	        drawString(g, Text2, 50, 700);
 	        
-	        g.setColor(new Color (50, 20, 80, 85));
-			g.fillRoundRect (50, 625, 400, 60, 30, 30);
-			g.setColor(new Color(25, 30, 70));
-	        g.setFont(new Font("Monospaced", Font.BOLD, 22));
-	        Text3 = "HINTS:";
-	        drawString(g, Text3, 65, 633);
-	        
-	        g.setColor(new Color(35, 40, 90));
-	        g.setFont(new Font("Monospaced", Font.BOLD, 20));
-	        Text4 = "press F1 to turn on/off";
-	        drawString(g, Text4, 155, 633);
-            
+	        if (turn > 2) {
+		        g.setColor(new Color (50, 20, 80, 85));
+				g.fillRoundRect (50, 625, 400, 60, 30, 30);
+				g.setColor(new Color(25, 30, 70));
+		        g.setFont(new Font("Monospaced", Font.BOLD, 22));
+		        Text3 = "HINTS:";
+		        drawString(g, Text3, 65, 633);
+		        
+		        g.setColor(new Color(35, 40, 90));
+		        g.setFont(new Font("Monospaced", Font.BOLD, 20));
+		        Text4 = "press '?' to show";
+		        drawString(g, Text4, 155, 633);
+	        } // if
+	         
 	        g.setColor(new Color (60, 30, 70));
             g.setFont(new Font("Monospaced", Font.BOLD, 27));
             
@@ -377,7 +377,14 @@ public class GameTemplate extends JPanel {
         	g.setFont(new Font("Monospaced", Font.BOLD, 25));
             drawString(g, playOutput4, 60, 450);
 		 
-        } // display based on game stage
+        } else if (gameStage == HINTS) {
+            
+        	g.drawImage(bgImage1, 0, 0, this);
+        	
+        	g.setColor(new Color (120, 130, 150, 170));
+        	g.fillRoundRect (0, 0, 1100, 750, 10, 10);
+            
+        }
     } // paintComponent
 
     // a class to handle keyboard input from the user
@@ -387,9 +394,9 @@ public class GameTemplate extends JPanel {
     	public void keyTyped(KeyEvent e) {
             
         	// quit if the user presses "escape"
-            if (e.getKeyChar() == 27) {
+            if (e.getKeyChar() == Event.ESCAPE) {
                 System.exit(0);
-            } else if (e.getKeyChar() == 127) {
+            } else if (e.getKeyChar() == Event.DELETE) {
         		showMenu();
         		dataEntered = "";
         	} else if (gameStage == MENU) {
@@ -417,6 +424,7 @@ public class GameTemplate extends JPanel {
                   // computer turn
                   if (isComputerTurn()) {
                       computerTakeTurn();
+                      playOutput2 = "";
                   } // if
 
                   // if user hits enter, record what is typed in
@@ -433,10 +441,15 @@ public class GameTemplate extends JPanel {
                   } // else
                   
                   if (turn > 2) {
-                	  if (e.getKeyChar() == Event.F1) {
-                		  gameStage = HINTS;
+                	  if (e.getKeyChar() == '?') {
+                		  dataEntered = "";
+                		  playOutput2 = "";
+                		  showHints();
                 	  } // if
                   } // if
+			} else if (gameStage == HINTS) {
+				gameStage = PLAY2;
+				panel.repaint();
 			} else {
                 showMenu();
             } // else
@@ -447,17 +460,19 @@ public class GameTemplate extends JPanel {
     private static void recordKey(char key) {
 
         // backspace pressed will removes characters
-         if (key == 8 && dataEntered.length() > 0) {
+    	if (key == 8 && dataEntered.length() > 0) {
               dataEntered = dataEntered.substring(0, dataEntered.length() - 1);
          } else {
-              dataEntered += (key + "");
-         } // else
-         playOutput2 = dataEntered;
-         panel.repaint();
+        	 dataEntered += (key + "");
+        } // else
+    	if (!isComputerTurn()) {
+    		playOutput2 = dataEntered;
+    	} // if
+    	panel.repaint();
     } // recordKey
 
     // returns the name of current player
-    private static String getCurrentPlayer(){ //change this to asking for a name
+    private static String getCurrentPlayer(){ 
         if (numPlayers == 2) {
             return (turn % 2 != 0) ? playerOneName :  playerTwoName; 
         } else {
@@ -634,7 +649,7 @@ public class GameTemplate extends JPanel {
 	    		} while (dataEntered.equals(currentWord));
 	    	} while (!isValidWord(dataEntered));
 	    	displayTurn();
-    	} catch (Exception e){	
+    	} catch (Exception e) {
     	} // catch
        
     } // computerTakeTurn
@@ -706,7 +721,7 @@ public class GameTemplate extends JPanel {
          
     	 // display the turn after the start and goal words are set
          if (turn > 2) {
-        	 playOutput1 = "Turn " + (turn - 3); 
+        	 playOutput1 = "Turn " + (turn - 2);
          } else {
         	 playOutput1 = "";
          } // else
@@ -752,7 +767,6 @@ public class GameTemplate extends JPanel {
     			} else {
     				goalWord = dataEntered;
     				playOutput6 = "The Goal Word is: " + goalWord;
-    				
     			} // else
     			
     			// determines what to show the user
@@ -808,25 +822,29 @@ public class GameTemplate extends JPanel {
     private static void saveNames() {
     	playOutput2 = "";
     	
-    	if (numPlayers == 2) {
-	    	if (name == 0) {
-	    		playerOneName = firstLetterCapital(dataEntered);
-	    		playOutput5 = "Player 2, Can you please enter your name? ";
-	    		panel.repaint();
-	    		
+    	if (dataEntered.length() > 0) {
+	    	if (numPlayers == 2) {
+		    	if (name == 0) {
+		    		playerOneName = firstLetterCapital(dataEntered);
+		    		playOutput5 = "Player 2, Can you please enter your name? ";
+		    		panel.repaint();
+		    	} else {
+		    		playerTwoName = firstLetterCapital(dataEntered);
+		    		panel.repaint();
+		    		startGame();
+		    	} // else
+		    	name++;
+		    	dataEntered = "";  // this will cause dataEntered to get erased
 	    	} else {
-	    		playerTwoName = firstLetterCapital(dataEntered);
+	    		playerOneName = firstLetterCapital(dataEntered);
+	    		playerTwoName = "Mr.Computer";
 	    		panel.repaint();
+	    		dataEntered = "";  // this will cause dataEntered to get erased
 	    		startGame();
 	    	} // else
-	    	name++;
-	    	dataEntered = "";  // this will cause dataEntered to get erased
     	} else {
-    		playerOneName = firstLetterCapital(dataEntered);
-    		playerTwoName = "Mr.Computer";
+    		playOutput5 = "Please enter a name: ";
     		panel.repaint();
-    		dataEntered = "";  // this will cause dataEntered to get erased
-    		startGame();
     	} // else
     } // save names
     
@@ -874,7 +892,7 @@ public class GameTemplate extends JPanel {
         panel.repaint();
     } // showMenu
     
-    private static void showHints() {
+    public static void showHints() {
     	gameStage = HINTS;
     	char currentWordArray[] = currentWord.toCharArray();
     	String newWordTest = "";
@@ -896,8 +914,7 @@ public class GameTemplate extends JPanel {
     	
     	for (int i = 0; i < numPossibleWords; i++) {
     		hintList = possibleWords[i] + "\n";
-    	}
-    	
+    	}	
     	panel.repaint();
     }
     
