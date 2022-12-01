@@ -4,9 +4,13 @@
 * Date:        November 30, 2022
 * Purpose:     An interactive and graphical version of the Change One Letter Game with both
 *			   single and double player options. 
-* Computer:    The computer player is...(continue this later)
+* Computer:    The computer player chooses a goal word from a bank of basic and common words. 
+* 			   On its turn the computer will go through all possible words, that are one letter
+* 			   different than the current word, and will choose which one has the greatest
+*              number of similar letters to the goal word. The computer will not win every time,
+*              but rather will attempt to bring the human player closer to the goal word.   
 ****************************************************************************************/
-
+//ask ms.wear bout commenting**
 
 import javax.swing.*;
 
@@ -181,28 +185,28 @@ public class GameTemplate extends JPanel {
         	g.fillRoundRect (0, 0, 1100, 750, 10, 10);
         	
 	        g.setColor(new Color (100, 60, 90, 100));
-	    	g.fillRoundRect (330, 40, 460, 80, 40, 40);
+	    	g.fillRoundRect (330, 20, 460, 80, 40, 40);
 	        
 	        g.setColor(new Color(40, 50, 80));
 	        g.setFont(new Font("Monospaced", Font.BOLD, 50));   // set font
-	        drawString(g, "INSTRUCTIONS", 375, 30);    // display title
+	        drawString(g, "INSTRUCTIONS", 375, 10);    // display title
 	        
 	        g.setColor(new Color (100, 60, 90, 100));
-	    	g.fillRoundRect (80, 155, 925, 550, 40, 40);
+	    	g.fillRoundRect (80, 130, 925, 575, 40, 40);
 	        
 	    	g.setColor(new Color(20, 40, 75));
 	    	g.setFont(new Font("Monospaced", Font.BOLD, 27));   // set font
 	    	instructionsText = "Objective:";
-	        drawString(g, instructionsText, 100, 155);  // display instructions
+	        drawString(g, instructionsText, 100, 130);  // display instructions
 
 	    	Text1 = "Set Up:";
-	        drawString(g, Text1, 100, 280);  // display instructions
+	        drawString(g, Text1, 100, 255);  // display instructions
 	        
 	        Text2 = "Game Play:";
-	        drawString(g, Text2, 100, 430);  // display instructions
+	        drawString(g, Text2, 100, 405);  // display instructions
 	        
 	        Text3 = "Additional Info:";
-	        drawString(g, Text3, 100, 620);  // display instructions
+	        drawString(g, Text3, 100, 595);  // display instructions
 	        
 	        g.setFont(new Font("Monospaced", Font.PLAIN, 23));   // set font
 	    	instructionsText = "The goal of the game is to be the first player to change\nthe start word to the goal word, "
@@ -210,8 +214,8 @@ public class GameTemplate extends JPanel {
 	    			+ " word and the other player, or the computer for the\nsingle player version, will enter the goal word.\n\n\n"
 	    			+ "On their turn, players will type in a new word with ONE letter\nthat is different than the previous word."
 	    			+ " This will continue\nuntil the goal word is reached.\nExample: mall --> mail --> bail --> boil\n\n\nPress "
-	    			+ "ctrl Backspace during game play to return to the menu.";
-	        drawString(g, instructionsText, 100, 190);  // display instructions
+	    			+ "ctrl Backspace during game play to return to the menu.\nPress the 'F1' key during game play to give you a HINT!";
+	        drawString(g, instructionsText, 100, 165);  // display instructions
 	        
 	        g.setColor(new Color(60, 30, 70));
 	        g.setFont(new Font("Monospaced", Font.BOLD, 22));
@@ -272,40 +276,52 @@ public class GameTemplate extends JPanel {
         	g.fillRoundRect (50, 325, 270, 80, 20, 20);
             g.setColor(new Color (60, 30, 70));
             g.setFont(new Font("Monospaced", Font.BOLD, 34));
-            drawString(g, playOutput2, 75, 330); 
+            drawString(g, playOutput2, 75, 325); 
             
             g.setColor(new Color (80, 70, 120, 120));
-        	g.fillRoundRect (50, 520, 400, 60, 20, 20);
+        	g.fillRoundRect (50, 445, 400, 60, 20, 20);
             g.setColor(new Color (60, 50, 100));
             g.setFont(new Font("Monospaced", Font.BOLD, 21));
-            drawString(g, playOutput7, 75, 525);
+            drawString(g, playOutput7, 75, 450);
             
             g.setColor(new Color (80, 70, 120, 120));
-        	g.fillRoundRect (50, 595, 400, 60, 20, 20);  
+        	g.fillRoundRect (50, 520, 400, 60, 20, 20);  
             g.setColor(new Color (60, 50, 100));
             g.setFont(new Font("Monospaced", Font.BOLD, 21));
-            drawString(g, playOutput6, 75, 600); 
+            drawString(g, playOutput6, 75, 525); 
            
             g.setColor(new Color (80, 30, 70));
             g.setFont(new Font("Monospaced", Font.BOLD, 40));
-            drawString(g, playOutput1, 910, 650);
+            drawString(g, playOutput1, 925, 633);
               
             g.setColor(new Color (60, 30, 70, 80));
-			g.fillRoundRect (550, 140, 500, 510, 30, 30);
+			g.fillRoundRect (565, 110, 500, 510, 30, 30);
 			
 			g.setColor(new Color (60, 30, 70, 120));
-			g.fillRoundRect (717, 150, 3, 490, 10, 10);
-			g.fillRoundRect (885, 150, 3, 490, 10, 10);
+			g.fillRoundRect (732, 120, 3, 490, 10, 10);
+			g.fillRoundRect (900, 120, 3, 490, 10, 10);
 			
 			g.setColor(new Color(60, 30, 70));
 	        g.setFont(new Font("Monospaced", Font.BOLD, 32));
 	        Text1 = "Game Play";
-	        drawString(g, Text1, 715, 80);
+	        drawString(g, Text1, 730, 40);
 	        
 	        g.setColor(new Color(60, 30, 70));
 	        g.setFont(new Font("Monospaced", Font.BOLD, 20));
 	        Text2 = "Press ctrl Backspace or 'delete' at any time to return to the menu";
 	        drawString(g, Text2, 50, 700);
+	        
+	        g.setColor(new Color (50, 20, 80, 85));
+			g.fillRoundRect (50, 625, 400, 60, 30, 30);
+			g.setColor(new Color(25, 30, 70));
+	        g.setFont(new Font("Monospaced", Font.BOLD, 22));
+	        Text3 = "HINTS:";
+	        drawString(g, Text3, 65, 633);
+	        
+	        g.setColor(new Color(35, 40, 90));
+	        g.setFont(new Font("Monospaced", Font.BOLD, 20));
+	        Text4 = "press F1 to turn on/off";
+	        drawString(g, Text4, 155, 633);
             
             String [] words = playOutputList.split("\n"); 
             
@@ -321,17 +337,17 @@ public class GameTemplate extends JPanel {
             for (int i = 0; i < words.length; i++) {
             	if (i < (12 + clearCounter)) {
             		playOutputList1 += words [i] + "\n";
-            		drawString(g, playOutputList1, 590, 150);
+            		drawString(g, playOutputList1, 605, 115);
             	} // if
             	
             	if (i >= (12 + clearCounter) && i < (24 + clearCounter)) {
             		playOutputList2 += words [i] + "\n"; 
-            		drawString(g, playOutputList2, 757, 150);
+            		drawString(g, playOutputList2, 772, 115);
             	} // if
             	
             	if (i >= (24 + clearCounter) && i < (36 + clearCounter)) {
             		playOutputList3 += words [i] + "\n"; 
-            		drawString(g, playOutputList3, 925, 150);
+            		drawString(g, playOutputList3, 940, 115);
             	} // if
             	
             	if (i == (36 + clearCounter)) {
@@ -364,7 +380,7 @@ public class GameTemplate extends JPanel {
             drawString(g, playOutput, 60,80);  
             
             g.setColor(new Color (80, 70, 120, 120));
-        	g.fillRoundRect (60, 200, 690, 200, 30, 30);
+        	g.fillRoundRect (60, 200, 840, 200, 30, 30);
             g.setColor(new Color (40, 30, 70));
             g.setFont(new Font("Monospaced", Font.BOLD, 35));
             drawString(g, playOutput1, 70, 220); 
@@ -373,7 +389,7 @@ public class GameTemplate extends JPanel {
            
             g.setColor(new Color (40, 40, 90));
         	g.setFont(new Font("Monospaced", Font.BOLD, 25));
-            drawString(g, playOutput4, 60, 500);
+            drawString(g, playOutput4, 60, 450);
 		 
         } // if game stage is End Game
         
@@ -720,7 +736,7 @@ public class GameTemplate extends JPanel {
          
     	 // display the turn after the start and goal words are set
          if (turn > 2) {
-        	 playOutput1 = "Turn " + (turn - 2); 
+        	 playOutput1 = "Turn " + (turn - 3); 
          } else {
         	 playOutput1 = "";
          } // else
@@ -869,7 +885,7 @@ public class GameTemplate extends JPanel {
 		 } else {
 			 playOutput2 = "It took " + (turn - 3) + " turn to win.";
 		 } // if
-		 playOutput4 = "Please press any key to return to menu or press the 'esc' key \nto end the game...";
+		 playOutput4 = "Please press any key to return to menu or press the \n'esc' key to end the game...";
          gameStage = END_GAME;
          panel.repaint();
     } // endGame
