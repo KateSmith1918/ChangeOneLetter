@@ -36,6 +36,7 @@ public class GameTemplate extends JPanel {
     static final int PLAY1 = 3;
     static final int PLAY2 = 4;
     static final int END_GAME = 5;
+    static final int HINTS = 6;
 
     static int numPlayers = 0;                     // number of players
     static int turn = 1;                           // current turn of game (starts at turn 1)
@@ -60,6 +61,7 @@ public class GameTemplate extends JPanel {
     static String Text2 = "";            			// instructions
     static String Text3 = "";            			// instructions
     static String Text4 = "";            			// instructions
+    static String hintList = "";					// list of hints
     static String playerOneName = "";				// name of player one
     static String playerTwoName = "";				// name of player two
 
@@ -348,7 +350,7 @@ public class GameTemplate extends JPanel {
          } // if game stage is Play2 
 		 
         // display end of game
-        else {
+        else if (gameStage == END_GAME) {
         	g.drawImage(bgImage1, 0, 0, this);
         	
         	g.setColor(new Color (120, 130, 150, 200));
@@ -373,6 +375,10 @@ public class GameTemplate extends JPanel {
         	g.setFont(new Font("Monospaced", Font.BOLD, 25));
             drawString(g, playOutput4, 60, 500);
 		 
+        } // if game stage is End Game
+        
+        else {
+        	
         } // else
     } // paintComponent
 
@@ -395,7 +401,7 @@ public class GameTemplate extends JPanel {
                     case 49:  showInstructions(); break;        	    // Key "1" pressed
                     case 50:  numPlayers = 1; setUpGame(); break;  		// Key "2" pressed
                     case 51:  numPlayers = 2; setUpGame(); break;   	// Key "3" pressed
-                    case 52:  System.exit(0);                       	// Key "4" pressed
+                    case 52:  System.exit(0);        					// Key "4" pressed
                 } // switch
             } // if 
 			
@@ -426,10 +432,15 @@ public class GameTemplate extends JPanel {
                   	  endGame();
                     } // if
                     
-                      
                   } else {
                     recordKey(e.getKeyChar());
                   } // else
+                  
+                  if (turn > 2) {
+                	  if (e.getKeyChar() == Event.F1) {
+                		  gameStage = HINTS;
+                	  }
+                  }
 			} // if
 			// if all else fails, show menu
 			else {
@@ -657,7 +668,7 @@ public class GameTemplate extends JPanel {
     	int similarChars = 0;
     	String newWord = "";
     	
-    	
+    	// gets a list of all of the possible words to change to
     	for (int i = 0; i < 4; i++) {
     		for (int j = 0; j < 26; j++) {
     			currentWordArray[i] = (char)(j + 97);
@@ -670,10 +681,7 @@ public class GameTemplate extends JPanel {
     		currentWordArray[i] = currentWord.charAt(i);
     	} // for
     	
-    	for (int i = 0; i < numPossibleWords; i++) {
-    		System.out.println(possibleWords[i]);
-    	} // for
-    	
+    	// creates a list of the closest words to the goal word from the possible words list
     	for (int i = 0; i < numPossibleWords; i++) {
     		possibleWordsArray = possibleWords[i].toCharArray();
     		for (int j = 0; j < 4; j++) {
@@ -681,7 +689,6 @@ public class GameTemplate extends JPanel {
     				similarChars++;
     			} // if
     		} // for
-    		System.out.println(similarChars);
     		if (similarChars == bestChars) {
     			similarWords[numSimilarWords] = new String(possibleWordsArray);
     			numSimilarWords++;
@@ -695,7 +702,6 @@ public class GameTemplate extends JPanel {
     			numSimilarWords++;
     		} else if (bestChars < previousBestChar) {
     			newWord = possibleWords[(int)(Math.random() * numPossibleWords)];
-    			System.out.println(previousBestChar);
     			return newWord;
     		} // if
     		similarChars = 0;
@@ -881,7 +887,34 @@ public class GameTemplate extends JPanel {
         gameStage = MENU;
         panel.repaint();
     } // showMenu
-
+    
+    private static void showHints() {
+    	gameStage = HINTS;
+    	char currentWordArray[] = currentWord.toCharArray();
+    	String newWordTest = "";
+    	String possibleWords[] = new String[104];
+    	int numPossibleWords = 0;
+    	
+    	// gets a list of all of the possible words to change to
+    	for (int i = 0; i < 4; i++) {
+    		for (int j = 0; j < 26; j++) {
+    			currentWordArray[i] = (char)(j + 97);
+    			newWordTest = new String(currentWordArray);
+    			if (isInDictionary(newWordTest)) {
+    				possibleWords[numPossibleWords] = newWordTest;
+    				numPossibleWords++;
+    			} // if
+    		} // for
+    		currentWordArray[i] = currentWord.charAt(i);
+    	} // for
+    	
+    	for (int i = 0; i < numPossibleWords; i++) {
+    		hintList = possibleWords[i] + "\n";
+    	}
+    	
+    	panel.repaint();
+    }
+    
     // sets game up to display instructions
     private static void showInstructions() {
         gameStage = INSTRUCTIONS;
