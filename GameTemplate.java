@@ -310,42 +310,37 @@ public class GameTemplate extends JPanel {
             String playOutputList1 = "";
             String playOutputList2 = "";
             String playOutputList3 = "";
-           
+            int clearCounter = 0;
             
             // display all turns in a box on right side
             g.setColor(new Color (60, 30, 70));
             g.setFont(new Font("Monospaced", Font.BOLD, 27));
             
             for (int i = 0; i < words.length; i++) {
-            	if (i < 12) {
+            	if (i < (12 + clearCounter)) {
             		playOutputList1 += words [i] + "\n";
             		drawString(g, playOutputList1, 590, 150);
             	} // if
             	
-            	if (i >= 12 && i < 24) {
+            	if (i >= (12 + clearCounter) && i < (24 + clearCounter)) {
             		playOutputList2 += words [i] + "\n"; 
             		drawString(g, playOutputList2, 757, 150);
             	} // if
             	
-            	if (i >= 24 && i < 36) {
+            	if (i >= (24 + clearCounter) && i < (36 + clearCounter)) {
             		playOutputList3 += words [i] + "\n"; 
             		drawString(g, playOutputList3, 925, 150);
             	} // if
             	
-            	if (i == 36) {
-            		System.out.println("loop2");
+            	if (i == (36 + clearCounter)) {
             		for (int j = 0; j < words.length; j++) {
 	            		words[j] = "";
 	            		if (j == 36) {
 	            			break;
 	            		} // if
-	            		System.out.println("loop1");
             		} // for
-            		 playOutputList1 = "";
-            		 playOutputList2 = "";
-            		 playOutputList3 = "";
-            		 words[0] = currentWord;
-            		 i = 0;
+            		 playOutputList = currentWord + "\n";
+            		 clearCounter += 36;
             		 panel.repaint();
             	} // if
             	
@@ -528,7 +523,7 @@ public class GameTemplate extends JPanel {
         		playOutput2 = "";
         		panel.repaint();
         		return false;
-        	}
+        	} // if
         } // if
     	return true;
     } // isValidWord
