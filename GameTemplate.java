@@ -4,7 +4,8 @@
 * Date:        December 2, 2022
 * Purpose:     An interactive and graphical version of the Change One Letter Game with both
 *			   single and double player options. 
-* Computer:    The computer player chooses a goal word from a bank of basic and common words. 
+* Computer:    The computer player chooses a goal word from a bank of basic and common four
+* 			   letter words that will mostly be able to be obtained during this game. 
 * 			   On its turn the computer will go through all possible words, that are one letter
 * 			   different than the current word, and will choose which one has the greatest
 *              number of similar letters to the goal word. The computer will not win every time,
@@ -637,7 +638,8 @@ public class GameTemplate extends JPanel {
     
     // take computer turn
     public static void computerTakeTurn() {
-       
+        
+    	// gets the computers goal or new word that is different from the previous word 
     	try {
 	    	do {
 	    		do {
@@ -647,15 +649,14 @@ public class GameTemplate extends JPanel {
 	    				dataEntered = getComputerGoalWord();
 	    			} // if
 	    		} while (dataEntered.equals(currentWord));
-	    	} while (!isValidWord(dataEntered));
+	    	} while (!isValidWord(dataEntered)); 
 	    	displayTurn();
     	} catch (Exception e) {
     	} // catch
        
     } // computerTakeTurn
-    
-    // playOutputList.contains(dataEntered)
-    
+ 
+    // makes the computer choose a new word that is the closest to the goal word
     public static String goodComputerWord(){
     	char currentWordArray[] = currentWord.toCharArray();
     	char goalWordArray[] = goalWord.toCharArray();
@@ -669,7 +670,7 @@ public class GameTemplate extends JPanel {
     	int similarChars = 0;
     	String newWord = "";
     	
-    	// gets a list of all of the possible words to change to
+    	// gets a list of all of the possible words that are one letter away from the current word
     	for (int i = 0; i < 4; i++) {
     		for (int j = 0; j < 26; j++) {
     			currentWordArray[i] = (char)(j + 97);
@@ -682,7 +683,7 @@ public class GameTemplate extends JPanel {
     		currentWordArray[i] = currentWord.charAt(i);
     	} // for
     	
-    	// creates a list of the closest words to the goal word from the possible words list
+    	// creates a list of the closest words to the goal word from the possible words list above
     	for (int i = 0; i < numPossibleWords; i++) {
     		possibleWordsArray = possibleWords[i].toCharArray();
     		for (int j = 0; j < 4; j++) {
@@ -714,48 +715,47 @@ public class GameTemplate extends JPanel {
     	return newWord;
     } // goodComputerWord
     
-    // display results from turn
+    // displays results after each turn is played
     public static void displayTurn() {
-    	 
     	 playOutput2 = "";
          
-    	 // display the turn after the start and goal words are set
+    	 // displays the turn after the start and goal words are set
          if (turn > 2) {
         	 playOutput1 = "Turn " + (turn - 2);
          } else {
         	 playOutput1 = "";
          } // else
          
-         // show who's turn it is
+         // shows who's turn it is
          if (numPlayers == 2) {
         	 playOutput4 = getCurrentPlayer() + ", enter your input here:";  
          } else {
         	 playOutput4 = "";
          } // else
          
-	     if (numPlayers == 1)
-         // set instructions to execute computer turn
-	         if (isComputerTurn()) {
+         // save inputs based on the number of players and turn
+         if (numPlayers == 1)
+        	 
+        	 // set instructions to execute computer turn or displays users turn
+        	 if (isComputerTurn()) {
 	             playOutput3 = "Press enter to see " + getCurrentPlayer() + "'s turn:"; 
 	         } else {
 	             playOutput3 = getCurrentPlayer() + ", enter your input here:";
-	         } else {
-	        	 playOutput3 = "";
-	         } // else
+	     } else {
+	    	 playOutput3 = "";
+	     } // else
          
-         panel.repaint();
-         
+         panel.repaint();   
     } // displayTurn
     
     // Saves input entered by user into currentWord
     private static void saveInput() {
-    	
     	dataEntered = dataEntered.toLowerCase();
     	
     	// save inputs based on the number of players and turn
     	if (numPlayers == 1) {
     		
-    		// save dataEntered into a more permanent location 
+    		// saves dataEntered into a more permanent location based on turn 
         	if (isValidWord(dataEntered)) {
     			if (turn == 1) { 
     				currentWord = dataEntered;
@@ -769,7 +769,7 @@ public class GameTemplate extends JPanel {
     				playOutput6 = "The Goal Word is: " + goalWord;
     			} // else
     			
-    			// determines what to show the user
+    			// determines what to show or ask the user next
         		if ((turn % 2) == 1) {
     	       		 if (turn == 1) {
     	       	          playOutput5 = playerTwoName + " will choose the goal \nword from the English dictionary.";
@@ -779,13 +779,12 @@ public class GameTemplate extends JPanel {
           	  	  } else {
           	  		  playOutput5 = playerOneName + ", please enter your new \nfour letter word with one \nletter changed.";
           	  	  } // else
-        		turn++;  // record turn completed
+        		turn++;  
         		displayTurn();
     		} // if
-        	
-    	} else { 
+        } else { 
     		
-    		// save dataEntered into a more permanent location 
+    		// save dataEntered into a more permanent location based on turn 
         	if (isValidWord(dataEntered)) {
     			if (turn == 1) { 
     				currentWord = dataEntered;
@@ -796,11 +795,10 @@ public class GameTemplate extends JPanel {
     				playOutputList += currentWord + "\n";
     			} else {
     				goalWord = dataEntered;
-    				playOutput6 = "The Goal Word is: " + goalWord;
-    				
+    				playOutput6 = "The Goal Word is: " + goalWord;	
     			} // else
     			
-    			// determines what to show the user
+    			// determines what to ask the user next
         		if ((turn % 2) == 1) {
         			if (turn == 1) {
         				playOutput5 = playerTwoName + ", please enter a four letter\ngoal word that is found in the \nEnglish dictionary.";
@@ -812,8 +810,7 @@ public class GameTemplate extends JPanel {
         		} // else
         		turn++;  // record turn completed
         		displayTurn();
-    		} // if
-        	
+    		} // if	
     	} // else
     	dataEntered = "";  // this will cause dataEntered to get erased
     } // saveInput
@@ -822,6 +819,7 @@ public class GameTemplate extends JPanel {
     private static void saveNames() {
     	playOutput2 = "";
     	
+    	// asks the second user for their name
     	if (dataEntered.length() > 0) {
 	    	if (numPlayers == 2) {
 		    	if (name == 0) {
@@ -834,12 +832,12 @@ public class GameTemplate extends JPanel {
 		    		startGame();
 		    	} // else
 		    	name++;
-		    	dataEntered = "";  // this will cause dataEntered to get erased
+		    	dataEntered = ""; 
 	    	} else {
 	    		playerOneName = firstLetterCapital(dataEntered);
 	    		playerTwoName = "Mr.Computer";
 	    		panel.repaint();
-	    		dataEntered = "";  // this will cause dataEntered to get erased
+	    		dataEntered = "";  
 	    		startGame();
 	    	} // else
     	} else {
@@ -848,25 +846,24 @@ public class GameTemplate extends JPanel {
     	} // else
     } // save names
     
+    // makes the first letter of the users name capital if it isn't already
     public static String firstLetterCapital(String word) {
     	char name[];
-    	
     	name = word.toCharArray();
     	if (name[0] > 96 && name[0] < 123) {
     		name[0] -= 32;
     	} // if
     	
     	word = new String(name);
-    	
     	return word;
-    	
     } // firstLetterCapital
     
-	// end game.
+	// displays winner and turn number at the end of the game
     private static void endGame() {
 
          playOutput = "Thank you for playing the Change One Letter game.\nThis game is over: ";
 		 playOutput1 = "Congratulations " + getOtherPlayer() + ", you won!";
+		 
 		 // to change output for grammatical purposes
 		 if(turn != 4) {
 			 playOutput2 = "It took " + (turn - 3) + " turns to win.";
@@ -877,7 +874,6 @@ public class GameTemplate extends JPanel {
          gameStage = END_GAME;
          panel.repaint();
     } // endGame
-
 
     // Shuts program down when close button pressed 
     private static class ExitListener extends WindowAdapter {
@@ -892,6 +888,7 @@ public class GameTemplate extends JPanel {
         panel.repaint();
     } // showMenu
     
+    // creates the list of possible words as hints for the user
     public static void showHints() {
     	gameStage = HINTS;
     	char currentWordArray[] = currentWord.toCharArray();
@@ -908,15 +905,16 @@ public class GameTemplate extends JPanel {
     				possibleWords[numPossibleWords] = newWordTest;
     				numPossibleWords++;
     			} // if
-    		} // for
+    		} // inner for
     		currentWordArray[i] = currentWord.charAt(i);
     	} // for
     	
+    	// outputs the possible words into a list of hint words
     	for (int i = 0; i < numPossibleWords; i++) {
     		hintList = possibleWords[i] + "\n";
-    	}	
+    	} // for	
     	panel.repaint();
-    }
+    } // showHints
     
     // sets game up to display instructions
     private static void showInstructions() {
@@ -950,7 +948,6 @@ public class GameTemplate extends JPanel {
         playOutput7 = "The Start Word is:";
         playOutput6 = "The Goal Word is:";
         panel.repaint();
-
     } // playGame
     
     // prepares for the start of the game and gets the name(s) of the user(s)
@@ -968,9 +965,7 @@ public class GameTemplate extends JPanel {
     	panel.repaint();		
     } // setUpGame
     
-    /*  draw multi-line Strings
-     *  author: John Evans
-     */
+    //draws multi-line Strings, author: John Evans
     private static void drawString(Graphics g, String text, int x, int y) {
     
         // draws each line on a new line
@@ -979,4 +974,4 @@ public class GameTemplate extends JPanel {
         } // for
     } // drawString
 
-} // Even and Odd
+} // Change One Letter Class
