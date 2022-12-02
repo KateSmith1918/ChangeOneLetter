@@ -451,7 +451,7 @@ public class GameTemplate extends JPanel {
         
             // respond to keys typed during game play
 			else if (gameStage == PLAY2) {
-
+				  
                   // computer turn
                   if (isComputerTurn()) {
                       computerTakeTurn();
@@ -480,6 +480,9 @@ public class GameTemplate extends JPanel {
                   } // if
 			} else if (gameStage == HINTS) {
 				gameStage = PLAY2;
+				playOutput = "";
+				playOutput1 = "";
+				playOutput2 = "";
 				panel.repaint();
 			} else {
                 showMenu();
@@ -920,7 +923,8 @@ public class GameTemplate extends JPanel {
     
     // creates the list of possible words as hints for the user
     public static void showHints() {
-    	gameStage = HINTS;
+    
+		gameStage = HINTS;
     	char currentWordArray[] = currentWord.toCharArray();
     	String newWordTest = "";
     	String possibleWords[] = new String[104];
