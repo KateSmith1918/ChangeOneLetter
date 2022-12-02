@@ -183,16 +183,16 @@ public class GameTemplate extends JPanel {
 	    	g.setColor(new Color(20, 40, 75));
 	    	g.setFont(new Font("Monospaced", Font.BOLD, 27));   
 	    	instructionsText = "Objective:";
-	        drawString(g, instructionsText, 100, 130);  
+	        drawString(g, instructionsText, 110, 130);  
 
 	    	Text1 = "Set Up:";
-	        drawString(g, Text1, 100, 255);  
+	        drawString(g, Text1, 110, 255);  
 	        
 	        Text2 = "Game Play:";
-	        drawString(g, Text2, 100, 405);  
+	        drawString(g, Text2, 110, 405);  
 	        
 	        Text3 = "Additional Info:";
-	        drawString(g, Text3, 100, 595); 
+	        drawString(g, Text3, 110, 595); 
 	        
 	        g.setFont(new Font("Monospaced", Font.PLAIN, 23));  
 	    	instructionsText = "The goal of the game is to be the first player to change\nthe start word to the goal word, "
@@ -200,8 +200,8 @@ public class GameTemplate extends JPanel {
 	    			+ " word and the other player, or the computer for the\nsingle player version, will enter the goal word.\n\n\n"
 	    			+ "On their turn, players will type in a new word with ONE letter\nthat is different than the previous word."
 	    			+ " This will continue\nuntil the goal word is reached.\nExample: mall --> mail --> bail --> boil\n\n\nPress "
-	    			+ "ctrl Backspace during game play to return to the menu.\nPress the 'F1' key during game play to give you a HINT!";
-	        drawString(g, instructionsText, 100, 165);  
+	    			+ "ctrl Backspace during game play to return to the menu.\nPress the '?' key during game play to give you a HINT!";
+	        drawString(g, instructionsText, 110, 165);  
 	        
 	        g.setColor(new Color(60, 30, 70));
 	        g.setFont(new Font("Monospaced", Font.BOLD, 22));
@@ -261,7 +261,7 @@ public class GameTemplate extends JPanel {
         	g.fillRoundRect (50, 325, 270, 80, 20, 20);
             g.setColor(new Color (60, 30, 70));
             g.setFont(new Font("Monospaced", Font.BOLD, 34));
-            drawString(g, playOutput2, 75, 325); 
+            drawString(g, playOutput2, 75, 329); 
             
             g.setColor(new Color (80, 70, 120, 120));
         	g.fillRoundRect (50, 445, 400, 60, 20, 20);
@@ -298,16 +298,16 @@ public class GameTemplate extends JPanel {
 	        
 	        if (turn > 2) {
 		        g.setColor(new Color (50, 20, 80, 85));
-				g.fillRoundRect (50, 625, 400, 60, 30, 30);
+				g.fillRoundRect (50, 610, 400, 70, 30, 30);
 				g.setColor(new Color(25, 30, 70));
 		        g.setFont(new Font("Monospaced", Font.BOLD, 22));
 		        Text3 = "HINTS:";
-		        drawString(g, Text3, 65, 633);
+		        drawString(g, Text3, 65, 617);
 		        
 		        g.setColor(new Color(35, 40, 90));
-		        g.setFont(new Font("Monospaced", Font.BOLD, 20));
-		        Text4 = "press '?' to show";
-		        drawString(g, Text4, 155, 633);
+		        g.setFont(new Font("Monospaced", Font.BOLD, 18));
+		        Text4 = "press '?' to show a \nlist of usable words";
+		        drawString(g, Text4, 155, 610);
 	        } // if
 	         
 	        g.setColor(new Color (60, 30, 70));
@@ -380,12 +380,42 @@ public class GameTemplate extends JPanel {
 		 
         } else if (gameStage == HINTS) {
             
+        	// sets up background image
         	g.drawImage(bgImage1, 0, 0, this);
-        	
         	g.setColor(new Color (120, 130, 150, 170));
         	g.fillRoundRect (0, 0, 1100, 750, 10, 10);
+        	
+        	// title of stage
+        	g.setColor(new Color (100, 60, 90, 100));
+	    	g.fillRoundRect (90, 50, 840, 60, 30, 30);
+	        
+	        g.setColor(new Color(60, 30, 70));
+	        g.setFont(new Font("Monospaced", Font.BOLD, 28));   
+	        drawString(g, playOutput, 100, 47);
+	        
+	        // display of instruction 
+	        g.setColor(new Color(50, 45, 90));
+	        g.setFont(new Font("Monospaced", Font.BOLD, 27));   
+	        drawString(g, playOutput1, 100, 205);   
+	        
+	        g.setColor(new Color(50, 45, 90));
+	        g.setFont(new Font("Monospaced", Font.BOLD, 27));   
+	        drawString(g, playOutput2, 100, 510);   
+	        
+	        // display of hints list
+	        g.setColor(new Color (100, 60, 90, 130));
+	    	g.fillRoundRect (765, 195, 185, 515, 30, 30);
+	        
+	        g.setColor(new Color(60, 30, 70, 130));
+	        g.setFont(new Font("Monospaced", Font.BOLD, 28));   
+	        Text1 = "Hint List";
+	        drawString(g, Text1, 780, 135);
+	        g.setColor(new Color(60, 30, 70, 240));
+	        g.setFont(new Font("Monospaced", Font.BOLD, 28)); 
+	        drawString(g, hintList, 820, 200);
+	        
             
-        }
+        } // if game stage is hints
     } // paintComponent
 
     // a class to handle keyboard input from the user
@@ -801,12 +831,12 @@ public class GameTemplate extends JPanel {
     			// determines what to ask the user next
         		if ((turn % 2) == 1) {
         			if (turn == 1) {
-        				playOutput5 = playerTwoName + ", please enter a four letter\ngoal word that is found in the \nEnglish dictionary.";
+        				playOutput5 = playerTwoName + ", please enter a four \nletter goal word that is found \nin the English dictionary.";
         			} else {
-        				playOutput5 = playerTwoName + ", please enter your new four\nletter word with one letter changed.";  
+        				playOutput5 = playerTwoName + ", please enter your new \nfour letter word with one \nletter changed.";  
         			} // else 
         		} else {
-        			playOutput5 = playerOneName + ", please enter your new four\nletter word with one letter changed.";
+        			playOutput5 = playerOneName + ", please enter your new \nfour letter word with one \nletter changed.";
         		} // else
         		turn++;  // record turn completed
         		displayTurn();
@@ -911,8 +941,13 @@ public class GameTemplate extends JPanel {
     	
     	// outputs the possible words into a list of hint words
     	for (int i = 0; i < numPossibleWords; i++) {
-    		hintList = possibleWords[i] + "\n";
+    		hintList += possibleWords[i] + "\n";
     	} // for	
+    	playOutput = getCurrentPlayer() + ", it seems that you have requested a hint...";
+    	playOutput1 = "Here is a list of words to choose \nfrom that may provide aid during \nyour current turn."
+    			+ " Try to choose \na word that will lead you closest \nto the goal word. Please choose \nwisely and return"
+    			+ " to game play!";
+    	playOutput2 = "Press any key to return to game play. \nRemember to press '?' again at \nany time to return to this page!";
     	panel.repaint();
     } // showHints
     
@@ -939,7 +974,7 @@ public class GameTemplate extends JPanel {
         
         // text to display
         playOutput = "Let's Play! ";
-        playOutput5 =  playerOneName + ", please enter a four letter\nstart word that is found in the\nEnglish dictionary.";
+        playOutput5 =  playerOneName + ", please enter a four \nletter start word that is found \nin the English dictionary.";
         if (numPlayers == 2) {
         	playOutput4 = getCurrentPlayer() + ", enter your input here: "; 
         } else {
